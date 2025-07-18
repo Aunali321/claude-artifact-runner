@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinitix Creative | Monochrome & Motion</title>
+
+    <!-- Font: Satoshi (via Fontshare) -->
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+
+    <!-- Font: EB Garamond (for quotes) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
+
+    <style>
+        /* ------------------- */
+        /* --- GLOBAL STYLES & MONOCHROME PALETTE --- */
+        /* ------------------- */
+        :root {
+            --bg: #000000;
+            --text: #FFFFFF;
+            --text-secondary: #a0a0a0;
+            --border: #333333;
+            --font-main: 'Satoshi', sans-serif;
+            --font-quote: 'EB Garamond', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            cursor: none;
+            /* Hide default cursor */
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        section {
+            padding: 140px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--text);
+        }
+
+        h2 {
+            font-size: 4rem;
+            margin-bottom: 80px;
+            text-align: center;
+        }
+
+        p {
+            color: var(--text-secondary);
+            max-width: 550px;
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        a {
+            color: var(--text);
+            text-decoration: none;
+            cursor: none;
+        }
+
+        /* ------------------- */
+        /* --- CUSTOM CURSOR --- */
+        /* ------------------- */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--text);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
+            z-index: 9999;
+        }
+
+        .cursor.grow {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* ------------------- */
+        /* --- 1. NAVBAR --- */
+        /* ------------------- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 0;
+            z-index: 1000;
+            transition: all 0.4s ease;
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 50px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--text);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta a {
+            border: 1px solid var(--text-secondary);
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta a:hover {
+            background-color: var(--text);
+            color: var(--bg);
+            border-color: var(--text);
+        }
+
+        /* ------------------- */
+        /* --- 2. HERO HEADER (KINETIC TYPOGRAPHY) --- */
+        /* ------------------- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 12vw, 10rem);
+            font-weight: 900;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+
+        .hero-line {
+            overflow: hidden;
+        }
+
+        .hero-line span {
+            display: block;
+            transform: translateY(110%);
+            animation: reveal-up 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        #line-2 span {
+            animation-delay: 0.15s;
+        }
+
+        @keyframes reveal-up {
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtext {
+            margin-top: 40px;
+            max-width: 400px;
+            animation: fade-in 1s ease 1s forwards;
+            opacity: 0;
+        }
+
+        @keyframes fade-in {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* ------------------- */
+        /* --- 3. ABOUT SECTION --- */
+        /* ------------------- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 2fr 3fr;
+            gap: 10%;
+            align-items: center;
+        }
+
+        .about-grid h2 {
+            text-align: left;
+            margin-bottom: 30px;
+            font-size: 3rem;
+            line-height: 1.2;
+        }
+
+        /* ------------------- */
+        /* --- 4. SERVICES SECTION --- */
+        /* ------------------- */
+        .service-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border);
+            transition: background-color 0.4s ease;
+        }
+
+        .service-item:first-of-type {
+            border-top: 1px solid var(--border);
+        }
+
+        .service-item h3 {
+            font-size: 3.5rem;
+            font-weight: 700;
+        }
+
+        .service-item p {
+            max-width: 350px;
+            text-align: right;
+        }
+
+        .service-item:hover {
+            background-color: #111;
+        }
+
+        /* ------------------- */
+        /* --- 5. WHY CHOOSE US --- */
+        /* ------------------- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .feature-item .number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .feature-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* ------------------- */
+        /* --- 6. CLIENT LOGOS (MARQUEE) --- */
+        /* ------------------- */
+        .logos h2 {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .marquee {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .marquee-track {
+            display: flex;
+            animation: marquee-scroll 40s linear infinite;
+        }
+
+        .marquee-item {
+            flex-shrink: 0;
+            width: 20%;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+
+        @keyframes marquee-scroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* ------------------- */
+        /* --- 7. TESTIMONIALS --- */
+        /* ------------------- */
+        .testimonial-content {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .testimonial-content .quote {
+            font-family: var(--font-quote);
+            font-style: italic;
+            font-size: 3rem;
+            font-weight: 500;
+            line-height: 1.4;
+            color: var(--text);
+            margin-bottom: 40px;
+        }
+
+        .testimonial-content .author {
+            font-weight: 700;
+        }
+
+        .testimonial-content .author-title {
+            color: var(--text-secondary);
+        }
+
+        /* ------------------- */
+        /* --- 8. HOW IT WORKS --- */
+        /* ------------------- */
+        .process-item {
+            padding-bottom: 30px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 100px 1fr auto;
+            align-items: baseline;
+            gap: 40px;
+        }
+
+        .process-item .step-number {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .process-item h3 {
+            font-size: 2.5rem;
+        }
+
+        .process-item p {
+            max-width: 400px;
+        }
+
+        /* ------------------- */
+        /* --- 9. BLOG & 10. CTA (COMBINED SECTION) --- */
+        /* ------------------- */
+        .cta-blog-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .cta-blog-grid h2 {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+            font-family: var(--font-main);
+            color: var(--text);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-bottom-color: var(--text);
+        }
+
+        .submit-btn {
+            background: transparent;
+            border: 1px solid var(--text);
+            color: var(--text);
+            font-family: var(--font-main);
+            font-size: 1.2rem;
+            font-weight: 500;
+            padding: 15px 30px;
+            border-radius: 40px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--text);
+            color: var(--bg);
+        }
+
+        /* ------------------- */
+        /* --- 11. FAQ --- */
+        /* ------------------- */
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .faq-item summary {
+            font-size: 1.5rem;
+            font-weight: 500;
+            padding: 30px 0;
+            cursor: none;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-item summary::after {
+            content: '+';
+            font-size: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-item .faq-content {
+            padding-bottom: 30px;
+        }
+
+        /* ------------------- */
+        /* --- 12. FOOTER --- */
+        /* ------------------- */
+        .footer {
+            padding: 100px 0 50px;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 100px;
+        }
+
+        .footer-top h3 {
+            font-size: 3rem;
+            max-width: 500px;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-secondary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            h2 {
+                font-size: 2.5rem;
+            }
+
+            .service-item h3 {
+                font-size: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .cta-blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-top {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .service-item,
+            .process-item {
+                display: block;
+                padding-bottom: 30px;
+            }
+
+            .service-item p {
+                text-align: left;
+                margin-top: 10px;
+            }
+
+            .process-item h3 {
+                font-size: 1.8rem;
+            }
+
+            .process-item p {
+                margin-top: 10px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="cursor"></div>
+
+    <!-- 1. NAVBAR -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="#" class="logo">Infinitix</a>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#process">Process</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-cta">
+                <a href="#contact">Start a Project</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- 2. HERO HEADER SECTION -->
+        <header class="hero">
+            <div class="container">
+                <h1>
+                    <div class="hero-line" id="line-1"><span>Design</span></div>
+                    <div class="hero-line" id="line-2"><span>In Motion</span></div>
+                </h1>
+                <p class="hero-subtext">A creative studio crafting digital experiences where design and purpose
+                    converge.</p>
+            </div>
+        </header>
+
+        <!-- 3. ABOUT SECTION -->
+        <section id="about" class="about">
+            <div class="container about-grid">
+                <h2>We believe great design is an act of clarity, not decoration.</h2>
+                <p>Infinitix is a design-forward studio focused on building exceptional digital platforms. We partner
+                    with ambitious brands to translate complex ideas into elegant, intuitive, and high-performing
+                    realities. Our process is a fusion of strategic thinking, meticulous craft, and a relentless pursuit
+                    of quality.</p>
+            </div>
+        </section>
+
+        <!-- 4. SERVICES SECTION -->
+        <section id="services">
+            <div class="container">
+                <div class="service-list">
+                    <div class="service-item">
+                        <h3>Brand Systems</h3>
+                        <p>Crafting comprehensive visual identities that endure.</p>
+                    </div>
+                    <div class="service-item">
+                        <h3>UI/UX Design</h3>
+                        <p>Designing intuitive interfaces that are a pleasure to use.</p>
+                    </div>
+                    <div class="service-item">
+                        <h3>Web Development</h3>
+                        <p>Engineering performant, scalable websites and applications.</p>
+                    </div>
+                    <div class="service-item">
+                        <h3>Motion & 3D</h3>
+                        <p>Bringing brands to life through animation and visual effects.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. WHY CHOOSE US / FEATURES -->
+        <section id="why-choose-us">
+            <div class="container">
+                <h2 style="text-align: left;">Our Principles</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="number">01</div>
+                        <h3>Radical Focus</h3>
+                        <p>We do a few things, and we do them exceptionally well. We believe in depth over breadth.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="number">02</div>
+                        <h3>Intentional Design</h3>
+                        <p>Every line, pixel, and animation has a purpose. We design with reason and clarity.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="number">03</div>
+                        <h3>True Partnership</h3>
+                        <p>We work with you, not for you. Our best work comes from deep collaboration and trust.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="number">04</div>
+                        <h3>Lasting Quality</h3>
+                        <p>We build for tomorrow, not just for the launch. Our work is crafted to be timeless and
+                            robust.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. CUSTOMER LOGOS SECTION -->
+        <section class="logos">
+            <div class="container">
+                <h2>Trusted by the Ambitious</h2>
+            </div>
+            <div class="marquee">
+                <div class="marquee-track">
+                    <div class="marquee-item">FutureCorp</div>
+                    <div class="marquee-item">NEXUS</div>
+                    <div class="marquee-item">Quantum</div>
+                    <div class="marquee-item">Aperture</div>
+                    <div class="marquee-item">Evolve</div>
+                    <!-- Duplicates for seamless loop -->
+                    <div class="marquee-item">FutureCorp</div>
+                    <div class="marquee-item">NEXUS</div>
+                    <div class="marquee-item">Quantum</div>
+                    <div class="marquee-item">Aperture</div>
+                    <div class="marquee-item">Evolve</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. TESTIMONIALS SECTION -->
+        <section id="testimonials">
+            <div class="container">
+                <div class="testimonial-content">
+                    <p class="quote">“Working with Infinitix was a masterclass in precision and creativity. They didn’t
+                        just build a product; they elevated our entire brand vision.”</p>
+                    <p class="author">Jane Doe</p>
+                    <p class="author-title">Founder, Aperture</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. HOW IT WORKS SECTION -->
+        <section id="process">
+            <div class="container">
+                <h2>Our Process</h2>
+                <div class="process-list">
+                    <div class="process-item">
+                        <div class="step-number">01</div>
+                        <h3>Discovery & Strategy</h3>
+                        <p>Deep-diving into your world to define objectives and map the path forward.</p>
+                    </div>
+                    <div class="process-item">
+                        <div class="step-number">02</div>
+                        <h3>Design & Prototype</h3>
+                        <p>Crafting visual concepts and interactive prototypes to bring the vision to life.</p>
+                    </div>
+                    <div class="process-item">
+                        <div class="step-number">03</div>
+                        <h3>Develop & Build</h3>
+                        <p>Writing clean, efficient code to engineer a robust and scalable final product.</p>
+                    </div>
+                    <div class="process-item">
+                        <div class="step-number">04</div>
+                        <h3>Launch & Iterate</h3>
+                        <p>Deploying the experience and partnering for ongoing growth and refinement.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. CTA FORM & 10. BLOG PREVIEW -->
+        <section id="contact">
+            <div class="container cta-blog-grid">
+                <div class="cta-content">
+                    <h2>Have a project in mind?</h2>
+                    <p>We are always looking for new challenges and ambitious partners. Let's create something
+                        exceptional together.</p>
+                    <!-- BLOG PREVIEW COULD GO HERE -->
+                    <a href="#" style="margin-top: 30px; display: inline-block;">Read our latest thoughts on design
+                        →</a>
+                </div>
+                <form class="cta-form">
+                    <input type="text" name="name" class="form-input" placeholder="What's your name?" required>
+                    <input type="email" name="email" class="form-input" placeholder="What's your email?" required>
+                    <input type="text" name="project" class="form-input" placeholder="Briefly, what's the project?"
+                        required>
+                    <button type="submit" class="submit-btn">Send Inquiry</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 11. FAQ -->
+        <section id="faq">
+            <div class="container">
+                <h2>Common Questions</h2>
+                <div class="faq-list">
+                    <details class="faq-item">
+                        <summary>What is your ideal project?</summary>
+                        <div class="faq-content">
+                            <p>Our ideal project is one where we can partner with a client who values design and sees it
+                                as a critical business driver. We thrive on challenges that require both strategic
+                                thinking and high-level craft, whether it's a brand identity, a website, or a complex
+                                application.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>How are you different from other agencies?</summary>
+                        <div class="faq-content">
+                            <p>We are a small, focused studio, not a large agency. This means you work directly with the
+                                creators and decision-makers. Our focus is on quality over quantity, and we build deep,
+                                long-term partnerships rather than taking on a high volume of short-term projects.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 12. FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <h3>Let's create something that matters.</h3>
+                <a href="mailto:hello@infinitix.com" class="nav-cta" style="flex-shrink: 0;"><a
+                        href="mailto:hello@infinitix.com">hello@infinitix.com</a></a>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2024 Infinitix Creative</span>
+                <div class="footer-links">
+                    <a href="#">LinkedIn</a>
+                    <a href="#">X (Twitter)</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- CUSTOM CURSOR ---
+            const cursor = document.querySelector('.cursor');
+            document.addEventListener('mousemove', e => {
+                cursor.setAttribute('style', `top: ${e.clientY}px; left: ${e.clientX}px;`);
+            });
+
+            document.querySelectorAll('a, button, summary, input').forEach(el => {
+                el.addEventListener('mouseover', () => cursor.classList.add('grow'));
+                el.addEventListener('mouseout', () => cursor.classList.remove('grow'));
+            });
+
+            // --- NAVBAR SCROLL EFFECT ---
+            const navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // --- SCROLL REVEAL OBSERVER ---
+            // A more modern approach than a library for this simple effect.
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = `fade-in 1s ease-out forwards`;
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('section > .container > *, .feature-item, .process-item, .faq-item').forEach(el => {
+                el.style.opacity = '0'; // Hide elements initially
+                observer.observe(el);
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>

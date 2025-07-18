@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinitix — Creative Studio</title>
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='white' stroke-width='1'/%3E%3C/svg%3E">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+        :root {
+            --bg: #0a0a0a;
+            --surface: rgba(255, 255, 255, 0.02);
+            --surface-hover: rgba(255, 255, 255, 0.05);
+            --text: #fafafa;
+            --text-secondary: rgba(250, 250, 250, 0.6);
+            --accent: #ffffff;
+            --border: rgba(255, 255, 255, 0.08);
+            --radius: 2px;
+            --font: 'Inter', sans-serif;
+            --mono: 'SF Mono', 'Monaco', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: var(--font);
+            scroll-behavior: smooth;
+            color: var(--text);
+        }
+
+        body {
+            background: var(--bg);
+            line-height: 1.4;
+            overflow-x: hidden;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 40px;
+            backdrop-filter: blur(12px);
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            font-weight: 500;
+            letter-spacing: .03em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            font-size: 0.9rem;
+            letter-spacing: .02em;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color .3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 20px;
+            height: 1px;
+            background: var(--text);
+        }
+
+        /* HERO */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.4rem, 6vw, 4rem);
+            font-weight: 400;
+            letter-spacing: -.02em;
+            margin-bottom: .8em;
+        }
+
+        .hero p {
+            max-width: 480px;
+            margin: 0 auto 2.4em;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .hero-cta {
+            border: 1px solid var(--border);
+            padding: 12px 28px;
+            border-radius: var(--radius);
+            font-size: .9rem;
+            letter-spacing: .02em;
+            text-decoration: none;
+            transition: background .3s;
+        }
+
+        .hero-cta:hover {
+            background: var(--surface-hover);
+        }
+
+        /* SECTION */
+        section {
+            padding: 120px 4vw;
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 60px;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+        }
+
+        .grid {
+            display: grid;
+            gap: 80px;
+            align-items: center;
+        }
+
+        /* ABOUT */
+        .about-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .about-text h2 {
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: .6em;
+            letter-spacing: -.01em;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+        }
+
+        /* SERVICES */
+        .services-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .services-list li {
+            font-size: 2.2rem;
+            font-weight: 300;
+            letter-spacing: -.01em;
+            transition: opacity .3s;
+            cursor: pointer;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 8px;
+        }
+
+        .services-list li:hover {
+            color: var(--accent);
+            border-color: var(--border);
+        }
+
+        .service-detail {
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+            transition: opacity .4s, height .4s;
+            margin-top: 8px;
+        }
+
+        .services-list li.active .service-detail {
+            opacity: 1;
+            height: 60px;
+        }
+
+        /* PROCESS */
+        .process {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .step h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            letter-spacing: .02em;
+        }
+
+        .step p {
+            font-size: .9rem;
+            color: var(--text-secondary);
+        }
+
+        .step-number {
+            font-family: var(--mono);
+            font-size: .7rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        /* SHOWCASE */
+        .showcase {
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            background: var(--surface);
+        }
+
+        .showcase video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: .8;
+        }
+
+        .showcase-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(0, 0, 0, .6));
+            display: flex;
+            align-items: end;
+            padding: 40px;
+        }
+
+        .showcase-info h3 {
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+
+        .showcase-info p {
+            font-size: .9rem;
+            color: var(--text-secondary);
+        }
+
+        /* TESTIMONIALS */
+        .testimonials {
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        blockquote {
+            font-style: italic;
+            color: var(--text-secondary);
+            border-left: 1px solid var(--border);
+            padding-left: 16px;
+            font-size: 1rem;
+        }
+
+        cite {
+            display: block;
+            margin-top: 12px;
+            font-size: .85rem;
+            color: var(--text-secondary);
+            font-style: normal;
+        }
+
+        /* CTA */
+        .cta {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 80px 4vw;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: .8em;
+        }
+
+        .cta form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        .cta input,
+        .cta textarea {
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 14px;
+            color: var(--text);
+            font-size: .9rem;
+            resize: none;
+        }
+
+        .cta input::placeholder,
+        .cta textarea::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .cta button {
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            border-radius: var(--radius);
+            padding: 14px;
+            cursor: pointer;
+            font-size: .9rem;
+            letter-spacing: .02em;
+            transition: opacity .3s;
+        }
+
+        .cta button:hover {
+            opacity: .8;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 60px 4vw 40px;
+            font-size: .85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color .3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .about-grid,
+            .process,
+            .testimonials {
+                grid-template-columns: 1fr;
+            }
+
+            .services-list li {
+                font-size: 1.8rem;
+            }
+
+            footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+        }
+
+        /* ANIMATIONS */
+        [data-reveal] {
+            opacity: 0;
+            transform: translateY(40px)
+        }
+
+        [data-reveal].visible {
+            opacity: 1;
+            transform: none;
+            transition: 1s cubic-bezier(.215, .61, .355, 1)
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <span class="nav-logo">Infinitix</span>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#showcase">Work</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1 data-reveal>Studio-grade digital craft</h1>
+            <p data-reveal>We design and build immersive experiences that move people and markets.</p>
+            <a href="#contact" class="hero-cta" data-reveal>Start a project</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="section-title" data-reveal>About</div>
+        <div class="grid about-grid">
+            <div class="about-text" data-reveal>
+                <h2>Precision, minimalism, motion.</h2>
+                <p>Infinitix is a boutique studio focused on high-fidelity design and engineering. Our work blends
+                    art-direction, code and strategy into seamless products across web, mobile, and physical spaces.</p>
+            </div>
+            <div data-reveal>
+                <p style="color:var(--text-secondary);font-size:1rem;">Founded 2018 · 14 team members · 120+ projects
+                    delivered · Clients in 18 countries</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="section-title" data-reveal>Services</div>
+        <ul class="services-list" data-reveal>
+            <li onclick="toggleService(this)">
+                Web Development
+                <div class="service-detail">Custom front-end & back-end systems, headless CMS, e-commerce.</div>
+            </li>
+            <li onclick="toggleService(this)">
+                UI / UX Design
+                <div class="service-detail">Research, wireframes, design systems, prototyping, usability testing.</div>
+            </li>
+            <li onclick="toggleService(this)">
+                3D & Motion
+                <div class="service-detail">WebGL, Three.js, product films, generative artwork.</div>
+            </li>
+            <li onclick="toggleService(this)">
+                Mobile Applications
+                <div class="service-detail">React-Native & native iOS / Android apps, App Store deployment.</div>
+            </li>
+        </ul>
+    </section>
+
+    <section id="process">
+        <div class="section-title" data-reveal>Process</div>
+        <div class="grid process">
+            <div class="step" data-reveal>
+                <div class="step-number">01</div>
+                <h3>Discover</h3>
+                <p>Stakeholder interviews, user journeys, technical audit.</p>
+            </div>
+            <div class="step" data-reveal>
+                <div class="step-number">02</div>
+                <h3>Prototype</h3>
+                <p>Wireframes, motion tests, interactive demos.</p>
+            </div>
+            <div class="step" data-reveal>
+                <div class="step-number">03</div>
+                <h3>Build</h3>
+                <p>Component libraries, API integration, QA, performance tuning.</p>
+            </div>
+            <div class="step" data-reveal>
+                <div class="step-number">04</div>
+                <h3>Launch</h3>
+                <p>Deployment, monitoring, continuous improvement.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="showcase">
+        <div class="section-title" data-reveal>Selected Work</div>
+        <div class="showcase" data-reveal>
+            <video autoplay muted loop playsinline>
+                <source src="https://cdn.coverr.co/videos/coverr-futuristic-city-loop-2849/1080p.mp4" type="video/mp4">
+            </video>
+            <div class="showcase-overlay">
+                <div class="showcase-info">
+                    <h3>Aether — Immersive Commerce</h3>
+                    <p>WebGL storefront, 3D product configurator, 4× conversion rate</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <div class="section-title" data-reveal>Testimonials</div>
+        <div class="grid testimonials">
+            <blockquote data-reveal>
+                “The team’s eye for detail and motion design elevated our brand beyond expectation.”
+                <cite>— Elena Ruiz, CMO, Stride</cite>
+            </blockquote>
+            <blockquote data-reveal>
+                “They delivered a flawless product on a tight deadline. True studio quality.”
+                <cite>— Daniel Cho, Founder, Nova</cite>
+            </blockquote>
+            <blockquote data-reveal>
+                “Our engagement metrics doubled after the redesign. Worth every penny.”
+                <cite>— Laura King, VP Product, Zenith</cite>
+            </blockquote>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="cta" data-reveal>
+            <h2>Start your next project</h2>
+            <form onsubmit="event.preventDefault();alert('Thanks— we’ll be in touch within 24h.')">
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="Email" required>
+                <input type="text" placeholder="Company">
+                <textarea placeholder="Project details" rows="3"></textarea>
+                <button type="submit">Send Brief</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <span>© 2024 Infinitix Creative Studio</span>
+        <ul class="footer-links">
+            <li><a href="mailto:hello@infinitixcreative.com">hello@infinitixcreative.com</a></li>
+            <li><a href="tel:+15551234567">+1 555 123 4567</a></li>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Dribbble</a></li>
+        </ul>
+    </footer>
+
+    <script>
+        // reveal on scroll
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) e.target.classList.add('visible');
+            });
+        }, { threshold: 0.2 });
+        document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+
+        // service toggle
+        function toggleService(li) {
+            li.classList.toggle('active');
+            li.querySelector('.service-detail').style.height = li.classList.contains('active') ? '60px' : '0';
+        }
+
+        // mobile nav
+        document.querySelector('.hamburger').onclick = () => {
+            document.querySelector('.nav-links').classList.toggle('open');
+        }
+    </script>
+</body>
+
+</html>

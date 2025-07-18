@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AETHER | Premium Studio SaaS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Archivo:wght@600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #050510;
+            --surface: rgba(25, 25, 50, 0.35);
+            --surface-light: rgba(40, 40, 80, 0.4);
+            --primary: #34e2ff;
+            --secondary: #a55cff;
+            --accent: #ff75aa;
+            --text: #ffffff;
+            --text-light: rgba(240, 240, 255, 0.75);
+            --transition: all 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background:
+                radial-gradient(ellipse 100% 80% at 30% 5%, rgba(53, 10, 90, 0.3), transparent),
+                radial-gradient(ellipse 100% 80% at 80% 90%, rgba(17, 70, 90, 0.35), transparent),
+                linear-gradient(180deg, var(--bg-dark) 0%, #0a0a1a 100%);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 0 2.5rem;
+        }
+
+        /* Navigation - Floating Glass */
+        header {
+            padding: 2rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            background: rgba(5, 5, 15, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 3rem;
+        }
+
+        .logo {
+            font-family: 'Archivo', sans-serif;
+            font-weight: 900;
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.8rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 1.12rem;
+            position: relative;
+            transition: var(--transition);
+            opacity: 0.85;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Glass Button */
+        .btn {
+            padding: 0.9rem 2.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            border: none;
+            font-size: 1.1rem;
+        }
+
+        .btn-primary {
+            background: rgba(52, 226, 255, 0.13);
+            color: var(--primary);
+            border: 1px solid rgba(52, 226, 255, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow:
+                0 0 20px rgba(52, 226, 255, 0.15),
+                inset 0 0 15px rgba(52, 226, 255, 0.08);
+        }
+
+        .btn-primary:hover {
+            background: rgba(52, 226, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow:
+                0 0 30px rgba(52, 226, 255, 0.25),
+                inset 0 0 20px rgba(52, 226, 255, 0.15);
+        }
+
+        /* Hero - Asymmetric Design */
+        .hero {
+            padding: 18rem 0 12rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .hero-text {
+            position: relative;
+            z-index: 2;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h1 {
+            font-family: 'Archivo', sans-serif;
+            font-size: 4.2rem;
+            font-weight: 800;
+            line-height: 1.05;
+            margin-bottom: 2rem;
+            letter-spacing: -1.5px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 550px;
+            margin-bottom: 2.8rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .btn-accent {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #070715;
+            font-weight: 700;
+            font-size: 1.15rem;
+            padding: 1.1rem 2.8rem;
+            box-shadow: 0 8px 35px rgba(52, 226, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-accent:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 12px 45px rgba(52, 226, 255, 0.55);
+        }
+
+        /* Glass Card with Edge Lighting */
+        .card {
+            background: var(--surface);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow:
+                0 20px 60px -10px rgba(0, 0, 20, 0.5),
+                inset 0 0 50px rgba(65, 115, 150, 0.08);
+            padding: 2.8rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 3D Hero Visual */
+        .hero-visual {
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .visual-container {
+            position: relative;
+            width: 110%;
+            transform-style: preserve-3d;
+            transform: rotateY(-8deg) rotateX(6deg);
+        }
+
+        .main-visual {
+            background:
+                linear-gradient(145deg, rgba(25, 25, 50, 0.5), rgba(15, 15, 40, 0.6)),
+                url('data:image/svg+xml;utf8,<svg viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="grad" x1="50%" y1="0%" x2="50%" y2="100%"><stop offset="0%" stop-color="%2334e2ff" stop-opacity="0.1" /><stop offset="100%" stop-color="%23a55cff" stop-opacity="0.1" /></linearGradient></defs><circle cx="400" cy="400" r="300" fill="url(%23grad)" /></svg>');
+            background-size: 140%;
+            background-position: center;
+            border-radius: 25px;
+            height: 550px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow:
+                0 60px 100px -20px rgba(0, 0, 40, 0.65),
+                inset 0 0 50px rgba(52, 226, 255, 0.12);
+        }
+
+        /* Features Section - Asymmetric Grid */
+        .features {
+            padding: 10rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            max-width: 700px;
+            margin: 0 auto 5rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-header h2 {
+            font-family: 'Archivo', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 1.8rem;
+            line-height: 1.1;
+        }
+
+        .section-header p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2.5rem;
+            position: relative;
+            z-index: 3;
+        }
+
+        .feature-card {
+            grid-column: span 4;
+            padding: 2.8rem;
+            background: var(--surface);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 30px 60px -20px rgba(0, 0, 30, 0.4);
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .feature-card:nth-child(1) {
+            grid-column: 1 / span 4;
+            transform: rotate(2deg);
+        }
+
+        .feature-card:nth-child(2) {
+            grid-column: 5 / span 4;
+            transform: rotate(-1deg);
+        }
+
+        .feature-card:nth-child(3) {
+            grid-column: 9 / span 4;
+            transform: rotate(1.5deg);
+        }
+
+        .feature-card:hover {
+            transform: rotate(0) translateY(-10px) !important;
+            box-shadow: 0 40px 70px -15px rgba(0, 0, 30, 0.7);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            border-radius: 23px;
+            background: linear-gradient(130deg, rgba(52, 226, 255, 0.15), transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2.2rem;
+            border-radius: 18px;
+            background: linear-gradient(145deg, rgba(25, 25, 60, 0.7), rgba(15, 15, 35, 0.8));
+            box-shadow:
+                0 8px 20px rgba(0, 0, 30, 0.3),
+                inset 0 -1px 4px rgba(255, 255, 255, 0.05),
+                inset 0 4px 15px rgba(52, 226, 255, 0.08);
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .feature-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.2rem;
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            font-size: 1.15rem;
+            line-height: 1.7;
+        }
+
+        /* Video Player Component */
+        .player-container {
+            position: relative;
+            margin: 5rem auto;
+            max-width: 1000px;
+            height: 580px;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow:
+                0 50px 100px -20px rgba(0, 0, 40, 0.8),
+                0 0 0 1px rgba(255, 255, 255, 0.07);
+            transform: translateY(50px);
+            opacity: 0;
+            animation: floatUp 1s ease forwards 0.3s;
+        }
+
+        .player-content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            padding: 4rem;
+            background: radial-gradient(ellipse 100% 50% at center, rgba(5, 5, 20, 0.6), rgba(5, 5, 20, 0.9));
+        }
+
+        .player-content h2 {
+            font-family: 'Archivo', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+        }
+
+        .player-content p {
+            font-size: 1.4rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .play-button {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2.5rem auto;
+            box-shadow: 0 15px 45px rgba(52, 226, 255, 0.4);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .play-button:hover {
+            transform: scale(1.08);
+            box-shadow: 0 20px 60px rgba(52, 226, 255, 0.6);
+        }
+
+        .play-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            animation: pulse 2s infinite;
+            z-index: -1;
+        }
+
+        .video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background:
+                linear-gradient(to right, #2a2a60, #1a1a45 30%, #0f0f30);
+            filter: contrast(140%) brightness(80%);
+            background-size: 200%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        /* Animations */
+        @keyframes floatUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.9);
+                opacity: 0.5;
+            }
+
+            70% {
+                transform: scale(1.3);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1.3);
+                opacity: 0;
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .floating {
+            animation: float 10s ease-in-out infinite;
+        }
+
+        /* Particles Background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(52, 226, 255, 0.2);
+            animation: float 15s infinite linear;
+        }
+
+        /* Footer */
+        footer {
+            padding: 7rem 0 3rem;
+            position: relative;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr repeat(4, 1fr);
+            gap: 3rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.8rem;
+            color: var(--text);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-col ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.1rem;
+            display: inline-block;
+            padding: 0.2rem 0;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .footer-about p {
+            color: var(--text-light);
+            margin: 1.5rem 0 1.8rem;
+            max-width: 380px;
+            font-size: 1.15rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--surface);
+            border-radius: 12px;
+            color: var(--text);
+            transition: var(--transition);
+            box-shadow: 0 8px 25px rgba(0, 0, 30, 0.3);
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px);
+            background: rgba(52, 226, 255, 0.15);
+            box-shadow: 0 15px 35px rgba(52, 226, 255, 0.25);
+            color: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 5rem;
+            color: var(--text-light);
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        /* Responsive Styling */
+        @media (max-width: 1200px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 2.2rem;
+                max-width: 800px;
+                margin: 0 auto;
+            }
+
+            .feature-card {
+                grid-column: 1 / -1 !important;
+                transform: none !important;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+                text-align: center;
+            }
+
+            .hero-text {
+                margin: 0 auto;
+            }
+
+            .hero p {
+                margin: 0 auto 2rem;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 3.5rem;
+            }
+
+            .player-container {
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 1.5rem;
+            }
+
+            .logo {
+                font-size: 1.8rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                gap: 1.2rem;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+
+            .player-content h2 {
+                font-size: 2.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">AETHER</div>
+                <div class="nav-links">
+                    <a href="#">Platform</a>
+                    <a href="#">Solutions</a>
+                    <a href="#">Studio</a>
+                    <a href="#">Pricing</a>
+                    <a href="#" class="btn btn-primary">Book Demo</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Studio-grade solutions for <span class="gradient-text">next-gen creators</span></h1>
+                    <p>AETHER transforms your creative process with high-performance tools loved by professionals
+                        worldwide.</p>
+                    <div class="cta-buttons">
+                        <a href="#" class="btn btn-accent">Start Free Trial</a>
+                        <a href="#" class="btn btn-primary">Explore Features</a>
+                    </div>
+                </div>
+                <div class="hero-visual floating">
+                    <div class="visual-container">
+                        <div class="card main-visual">
+                            <!-- Visualized with gradients and box shadow -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Studio-Quality Tools</h2>
+                <p>Professional toolset designed for premium creators and studio workflows</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                    <h3>Infinite Canvas</h3>
+                    <p>Seamless creative space with dynamic layers, unlimited artboards, and fluid zooming. Precision
+                        tools optimized for high-resolution workflows.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3>AI-Assisted Compositing</h3>
+                    <p>Intelligent content-aware editing powered by machine learning. Auto-separate subjects, match
+                        lighting, and generate realistic composites.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3>Hardware Optimization</h3>
+                    <p>Fully optimized for M-series chips and RTX GPUs. Utilize hardware acceleration for instant
+                        rendering and real-time effects.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Player Section -->
+    <div class="container">
+        <div class="player-container">
+            <div class="video-bg"></div>
+            <div class="player-content">
+                <h2>Cinematic visuals meet precision editing</h2>
+                <p>Experience professional editing tools designed for cinematic storytelling and studio-quality
+                    post-production.</p>
+                <div class="play-button">
+                    <i class="fas fa-play fa-2x"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col footer-about">
+                    <div class="logo">AETHER</div>
+                    <p>Next-generation creative suite for professionals who demand excellence in every pixel.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-dribbble"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Platform</h3>
+                    <ul>
+                        <li><a href="#">Core Tools</a></li>
+                        <li><a href="#">Plugins</a></li>
+                        <li><a href="#">Beta Features</a></li>
+                        <li><a href="#">API</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Solutions</h3>
+                    <ul>
+                        <li><a href="#">Animation</a></li>
+                        <li><a href="#">Visual Effects</a></li>
+                        <li><a href="#">Film Production</a></li>
+                        <li><a href="#">Game Design</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Masterclasses</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Asset Library</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Studio Program</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 AETHER Inc. • Designed for modern studios • All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Particle system creation
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const colors = ['34, 226, 255', '165, 92, 255', '255, 117, 170', '52, 255, 180'];
+
+            for (let i = 0; i < 70; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+
+                // Random properties
+                const size = Math.random() * 3 + 1;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const opacity = Math.random() * 0.3 + 0.1;
+
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.backgroundColor = `rgba(${color}, ${opacity})`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+
+                container.appendChild(particle);
+            }
+        }
+
+        // Initialize particles
+        window.addEventListener('DOMContentLoaded', createParticles);
+
+        // Setup floating animations for cards
+        document.querySelectorAll('.floating').forEach(el => {
+            el.style.animationDelay = `${Math.random() * 2}s`;
+        });
+
+        // Setup hover effects for cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-15px)';
+                card.style.boxShadow = '0 40px 70px -15px rgba(0, 0, 30, 0.7)';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                const transform = card.getAttribute('data-original-transform');
+                card.style.transform = transform;
+                card.style.boxShadow = '0 30px 60px -20px rgba(0, 0, 30, 0.4)';
+            });
+        });
+
+        // Play button interaction
+        document.querySelector('.play-button').addEventListener('click', function () {
+            this.innerHTML = '<i class="fas fa-pause fa-2x"></i>';
+            this.classList.add('pulsing');
+
+            // Video would play here in a real implementation
+        });
+    </script>
+</body>
+
+</html>

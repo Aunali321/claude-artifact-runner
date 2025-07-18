@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinitix Creative | The Resilient & Rich Canvas</title>
+
+    <!-- FONT CHANGE: Switched to Google Fonts for reliability -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #F5F4F0;
+            --text: #181818;
+            --text-secondary: #505050;
+            --accent: #B54936;
+            /* A slightly deeper, more stable terracotta */
+            --border: #DCDCDC;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            /* FIX: Hide content initially to prevent flash of unstyled content (FOUC) */
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        /* FIX: 'loaded' class makes the page visible once ready */
+        body.loaded {
+            opacity: 1;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Animation Logic */
+        .reveal-container {
+            overflow: hidden;
+        }
+
+        .reveal-item {
+            transform: translateY(110%);
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .loaded .hero .reveal-item {
+            transform: translateY(0);
+        }
+
+        .in-view .reveal-item {
+            transform: translateY(0);
+        }
+
+        .fade-in {
+            opacity: 0;
+            transition: opacity 1.5s ease 0.5s;
+        }
+
+        .loaded .hero .fade-in,
+        .in-view .fade-in {
+            opacity: 1;
+        }
+
+        /* --- 1. NAVBAR --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 0;
+            z-index: 1000;
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: var(--text);
+            font-family: var(--font-body);
+        }
+
+        .nav-link {
+            font-weight: 500;
+            text-decoration: none;
+            color: var(--text);
+            padding: 5px 10px;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 1px;
+            background-color: var(--text);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* --- 2. HERO HEADER --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* NEW: Video Background */
+        .hero-video-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            opacity: 0.2;
+            /* Kept subtle */
+            filter: grayscale(100%);
+        }
+
+        .hero-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            width: 100%;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 10vw, 9rem);
+            font-weight: 500;
+            line-height: 0.95;
+            text-transform: capitalize;
+        }
+
+        .hero-content p {
+            max-width: 250px;
+            padding-bottom: 10px;
+            color: var(--text-secondary);
+        }
+
+        /* --- 3. ABOUT SECTION & MARQUEE --- */
+        .marquee {
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .marquee span {
+            font-family: var(--font-heading);
+            font-style: italic;
+            font-size: 2.5rem;
+            padding: 0 2rem;
+            animation: marquee 25s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes marquee {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        .about {
+            padding: 150px 0;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10%;
+            align-items: center;
+        }
+
+        .about-grid h2 {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            line-height: 1.2;
+            font-weight: 500;
+        }
+
+        .about-grid p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        /* --- 4. SERVICES (HORIZONTAL SCROLL GALLERY) --- */
+        .services-wrapper {
+            height: 300vh;
+            position: relative;
+        }
+
+        .services-sticky-container {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .services-scroller {
+            display: flex;
+            height: 100%;
+            width: 400%;
+            /* 100% per slide */
+        }
+
+        .service-slide {
+            width: 25%;
+            /* FIX: Each of the 4 slides takes 1/4 of the scroller width */
+            height: 100%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            padding: 50px;
+        }
+
+        .service-slide::after {
+            /* Overlay for text readability */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1));
+        }
+
+        /* NEW: Background images for slides */
+        #slide-1 {
+            background-image: url('https://images.unsplash.com/photo-1558655146-364adaf1fcc9?q=80&w=1964&auto=format&fit=crop');
+        }
+
+        #slide-2 {
+            background-image: url('https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop');
+        }
+
+        #slide-3 {
+            background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=1974&auto=format&fit=crop');
+        }
+
+        #slide-4 {
+            background-image: url('https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=2070&auto=format&fit=crop');
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            padding: 50px 60px;
+            max-width: 500px;
+            color: #fff;
+        }
+
+        .slide-content .tagline {
+            font-family: var(--font-body);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .slide-content h3 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 500;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        /* --- 5. PHILOSOPHY / WHY CHOOSE US --- */
+        .philosophy {
+            padding: 150px 0;
+        }
+
+        .philosophy h2 {
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 100px;
+            font-weight: 500;
+        }
+
+        .philosophy-item {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 5%;
+            padding: 50px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .philosophy-item:first-of-type {
+            border-top: 1px solid var(--border);
+        }
+
+        .philosophy-item .number {
+            font-size: 1.2rem;
+            font-weight: 600;
+            font-family: var(--font-body);
+        }
+
+        .philosophy-item h3 {
+            font-size: 2rem;
+            font-weight: 500;
+            font-family: var(--font-body);
+        }
+
+        .philosophy-item p {
+            color: var(--text-secondary);
+        }
+
+        /* --- 6. FEATURED WORK --- */
+        .featured-work {
+            padding: 150px 0;
+        }
+
+        .work-item {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            align-items: center;
+            padding: 80px 0;
+        }
+
+        .work-image {
+            grid-column: 1 / span 7;
+            grid-row: 1;
+            width: 100%;
+            height: 500px;
+            background-color: #ccc;
+            background-size: cover;
+            border-radius: 10px;
+        }
+
+        .work-details {
+            grid-column: 7 / span 5;
+            grid-row: 1;
+            background: var(--bg);
+            padding: 40px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        .work-details h3 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 500;
+        }
+
+        .work-details p {
+            margin: 15px 0;
+        }
+
+        .work-details .link {
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* --- 7. CTA / CONTACT --- */
+        .contact {
+            padding: 150px 0;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 500;
+            line-height: 1;
+        }
+
+        .contact-link {
+            display: inline-block;
+            margin-top: 40px;
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--text);
+            text-decoration: none;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .contact-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .contact-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* --- 8. FOOTER --- */
+        .footer {
+            padding: 50px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-secondary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--text);
+        }
+
+        /* RESPONSIVENESS */
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+            }
+
+            .hero-content h1 {
+                font-size: 6rem;
+            }
+
+            .hero-content p {
+                max-width: 100%;
+                margin-top: 20px;
+            }
+
+            .about-grid,
+            .philosophy-item {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .work-image,
+            .work-details {
+                grid-column: 1 / -1;
+            }
+
+            .work-details {
+                margin-top: -50px;
+                position: relative;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 1. NAVBAR -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="#" class="logo">Infinitix</a>
+            <a href="#contact" class="nav-link">Start a Dialogue</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- 2. HERO HEADER SECTION -->
+        <header class="hero">
+            <!-- NEW: Video Background -->
+            <video class="hero-video-bg" playsinline autoplay muted loop>
+                <source
+                    src="https://assets.mixkit.co/videos/preview/mixkit-abstract-liquid-effect-with-bubbles-and-white-waves-4467-large.mp4"
+                    type="video/mp4">
+            </video>
+            <div class="container hero-content">
+                <h1>
+                    <div class="reveal-container">
+                        <div class="reveal-item">Ideas</div>
+                    </div>
+                    <div class="reveal-container">
+                        <div class="reveal-item" style="transition-delay: 0.1s">into Form</div>
+                    </div>
+                </h1>
+                <p class="fade-in">A design & technology studio crafting digital experiences that resonate, inspire, and
+                    perform.</p>
+            </div>
+        </header>
+
+        <!-- 3. ABOUT / MARQUEE -->
+        <section class="marquee">
+            <span>Brand Systems</span>—
+            <span>Web & Mobile Apps</span>—
+            <span>UI/UX Design</span>—
+            <span>Creative Content</span>—
+            <span>Brand Systems</span>—
+            <span>Web & Mobile Apps</span>—
+            <span>UI/UX Design</span>—
+            <span>Creative Content</span>—
+        </section>
+
+        <section id="about" class="about">
+            <div class="container about-grid">
+                <div class="reveal-container">
+                    <h2 class="reveal-item">We are a compact team of creators who believe in the power of thoughtful
+                        design.</h2>
+                </div>
+                <p class="fade-in">Infinitix operates at the intersection of beauty and logic. We don't chase trends; we
+                    build lasting value. Our process is transparent, our collaboration is deep, and our dedication to
+                    craft is unwavering. We partner with ambitious brands to create digital work that is not only
+                    memorable but also measurable.</p>
+            </div>
+        </section>
+
+        <!-- 4. SERVICES (HORIZONTAL SCROLL) -->
+        <section class="services-wrapper">
+            <div class="services-sticky-container">
+                <div class="services-scroller">
+                    <article class="service-slide" id="slide-1">
+                        <div class="slide-content">
+                            <span class="tagline">01 / Design & Interfaces</span>
+                            <h3>Digital Architecture</h3>
+                            <p>We design intuitive, human-centric interfaces for web and mobile. Our process involves
+                                deep research and prototyping to create experiences that are both beautiful and
+                                effortlessly usable.</p>
+                        </div>
+                    </article>
+                    <article class="service-slide" id="slide-2">
+                        <div class="slide-content">
+                            <span class="tagline">02 / Engineering</span>
+                            <h3>Web Development</h3>
+                            <p>From lightning-fast marketing sites to complex web applications, we build robust,
+                                scalable platforms using modern technologies that stand the test of time.</p>
+                        </div>
+                    </article>
+                    <article class="service-slide" id="slide-3">
+                        <div class="slide-content">
+                            <span class="tagline">03 / Identity</span>
+                            <h3>Brand Systems</h3>
+                            <p>We build cohesive brand identities from the ground up—logo, messaging, typography, and
+                                color—that tell a compelling story across every touchpoint.</p>
+                        </div>
+                    </article>
+                    <article class="service-slide" id="slide-4">
+                        <div class="slide-content">
+                            <span class="tagline">04 / Storytelling</span>
+                            <h3>Creative Content</h3>
+                            <p>Engaging video, motion graphics, and 3D animations that captivate your audience and bring
+                                the narrative of your brand to life in spectacular fashion.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. PHILOSOPHY / WHY CHOOSE US -->
+        <section id="philosophy" class="philosophy">
+            <div class="container">
+                <div class="reveal-container">
+                    <h2 class="reveal-item">Our Philosophy</h2>
+                </div>
+                <div class="philosophy-item">
+                    <div class="number">01</div>
+                    <h3>Clarity Over Complexity</h3>
+                    <p>We distill complex challenges into simple, elegant solutions. Our goal is to make the
+                        sophisticated feel effortless.</p>
+                </div>
+                <div class="philosophy-item">
+                    <div class="number">02</div>
+                    <h3>Partners, Not Vendors</h3>
+                    <p>We embed ourselves in your team. Your objectives become our own. We succeed when you succeed.</p>
+                </div>
+                <div class="philosophy-item">
+                    <div class="number">03</div>
+                    <h3>Craft in Every Pixel</h3>
+                    <p>We are obsessed with quality. From strategic planning to the final line of code, we hold our work
+                        to the highest standards.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. FEATURED WORK -->
+        <section class="featured-work">
+            <div class="container">
+                <article class="work-item">
+                    <div class="work-image"
+                        style="background-image: url('https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?q=80&w=1974&auto=format&fit=crop');">
+                    </div>
+                    <div class="work-details">
+                        <h3>FutureCorp</h3>
+                        <p>A complete digital transformation, including a new brand identity and a flagship e-commerce
+                            platform that increased conversions by 75%.</p>
+                        <a href="#" class="link">View Case Study →</a>
+                    </div>
+                </article>
+                <article class="work-item">
+                    <div class="work-image"
+                        style="background-image: url('https://images.unsplash.com/photo-1572177812156-58036aae439c?q=80&w=2070&auto=format&fit=crop'); grid-column: 6 / span 7;">
+                    </div>
+                    <div class="work-details" style="grid-column: 2 / span 5; text-align: right;">
+                        <h3>Quantum Leap</h3>
+                        <p>An immersive marketing site for a groundbreaking tech startup, featuring complex WebGL
+                            animations and a dynamic content management system.</p>
+                        <a href="#" class="link">← View Case Study</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- 7. CTA / CONTACT -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <div class="reveal-container">
+                    <h2 class="reveal-item">Let's Begin<br>a Dialogue</h2>
+                </div>
+                <a href="mailto:hello@infinitix.com" class="contact-link">hello@infinitix.com</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- 8. FOOTER -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <span>© 2024 Infinitix Creative</span>
+            <div class="footer-links">
+                <a href="#">LinkedIn</a>
+                <a href="#">Dribbble</a>
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // FIX: Add 'loaded' class to body to trigger initial animations
+            document.body.classList.add('loaded');
+
+            // --- SCROLL-TRIGGERED REVEAL ANIMATIONS ---
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            document.querySelectorAll('.reveal-container, .fade-in, .philosophy-item, .work-item').forEach(el => {
+                revealObserver.observe(el);
+            });
+
+            // --- HORIZONTAL SCROLLING ---
+            const scroller = document.querySelector('.services-scroller');
+            const wrapper = document.querySelector('.services-wrapper');
+
+            // Only run if the elements exist
+            if (scroller && wrapper) {
+                window.addEventListener('scroll', () => {
+                    const wrapperRect = wrapper.getBoundingClientRect();
+                    if (wrapperRect.top <= 0 && wrapperRect.bottom >= window.innerHeight) {
+                        const scrollableDistance = wrapper.offsetHeight - window.innerHeight;
+                        const scrolledPercentage = Math.max(0, Math.min(1, (-wrapperRect.top) / scrollableDistance));
+
+                        const horizontalScrollDistance = scroller.scrollWidth - window.innerWidth;
+                        const newScrollLeft = horizontalScrollDistance * scrolledPercentage;
+
+                        scroller.style.transform = `translateX(-${newScrollLeft}px)`;
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

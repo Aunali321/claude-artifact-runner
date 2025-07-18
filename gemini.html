@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinitix Creative - A Digital Design Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #050505;
+            --text-color: #EAEAEA;
+            --accent-color: #007CF0;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        #three-canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .accent-text {
+            color: var(--accent-color);
+        }
+
+        .glass-ui {
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -6px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .service-item {
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.4s ease;
+        }
+
+        .service-item:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        .horizontal-scroll-section {
+            width: 400vw;
+            /* 4 panels */
+            will-change: transform;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- 3D Background -->
+    <div id="three-canvas-container"></div>
+
+    <!-- Header & Navbar -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-5">
+            <nav class="flex items-center justify-between">
+                <a href="#home" class="text-2xl font-bold tracking-tighter">
+                    Infinitix<span class="accent-text">.</span>
+                </a>
+                <div class="hidden md:flex items-center space-x-10">
+                    <a href="#services" class="nav-link text-slate-300 hover:text-white">Services</a>
+                    <a href="#work" class="nav-link text-slate-300 hover:text-white">Process</a>
+                    <a href="#about" class="nav-link text-slate-300 hover:text-white">Studio</a>
+                </div>
+                <a href="#contact"
+                    class="hidden md:inline-block bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium py-2 px-6 rounded-full transition-all duration-300">
+                    Start a Project
+                </a>
+                <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16">
+                        </path>
+                    </svg>
+                </button>
+            </nav>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-ui">
+            <a href="#services"
+                class="block text-center py-4 px-4 text-slate-300 hover:text-white hover:bg-white/5">Services</a>
+            <a href="#work"
+                class="block text-center py-4 px-4 text-slate-300 hover:text-white hover:bg-white/5">Process</a>
+            <a href="#about"
+                class="block text-center py-4 px-4 text-slate-300 hover:text-white hover:bg-white/5">Studio</a>
+            <div class="p-4">
+                <a href="#contact"
+                    class="block w-full text-center bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium py-3 px-6 rounded-full transition-all duration-300">
+                    Start a Project
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="relative h-screen flex items-center">
+            <div class="container mx-auto px-6 z-10">
+                <div class="max-w-4xl">
+                    <h1
+                        class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white animate-fade-in-up">
+                        We build brands & digital experiences<span class="accent-text">.</span>
+                    </h1>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 md:py-40">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-5 gap-12 items-center">
+                    <div class="md:col-span-2 gsap-fade-in">
+                        <h2 class="section-title mb-6">A digital-first creative studio<span class="accent-text">.</span>
+                        </h2>
+                    </div>
+                    <div class="md:col-span-3 text-slate-300 text-lg md:text-xl space-y-6 leading-relaxed gsap-fade-in">
+                        <p>Infinitix is a collective of designers, developers, and strategists who believe in the power
+                            of thoughtful design. We translate complex ideas into simple, beautiful, and intuitive
+                            digital solutions.</p>
+                        <p>We're not just a vendor; we're a partner. We immerse ourselves in your world to create work
+                            that is both authentic to your brand and resonant with your audience.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-20 md:py-40">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title mb-16 max-w-3xl gsap-fade-in">Solutions built for the modern web<span
+                        class="accent-text">.</span></h2>
+                <div class="border-t border-[var(--border-color)]">
+                    <!-- Service Item 1 -->
+                    <div class="service-item gsap-fade-in">
+                        <div class="container mx-auto px-6 py-10 grid md:grid-cols-4 items-center gap-6">
+                            <h3 class="md:col-span-1 text-2xl font-bold text-white">Web Design & Dev</h3>
+                            <p class="md:col-span-2 text-slate-400">High-performance websites that blend aesthetic
+                                appeal with flawless functionality.</p>
+                            <div class="md:col-span-1 text-right text-3xl text-slate-600">&rarr;</div>
+                        </div>
+                    </div>
+                    <!-- Service Item 2 -->
+                    <div class="service-item gsap-fade-in">
+                        <div class="container mx-auto px-6 py-10 grid md:grid-cols-4 items-center gap-6">
+                            <h3 class="md:col-span-1 text-2xl font-bold text-white">Branding & Identity</h3>
+                            <p class="md:col-span-2 text-slate-400">Creating memorable brands that stand out and tell a
+                                compelling story.</p>
+                            <div class="md:col-span-1 text-right text-3xl text-slate-600">&rarr;</div>
+                        </div>
+                    </div>
+                    <!-- Service Item 3 -->
+                    <div class="service-item gsap-fade-in">
+                        <div class="container mx-auto px-6 py-10 grid md:grid-cols-4 items-center gap-6">
+                            <h3 class="md:col-span-1 text-2xl font-bold text-white">UI/UX & Product Design</h3>
+                            <p class="md:col-span-2 text-slate-400">Designing intuitive interfaces that offer meaningful
+                                user experiences.</p>
+                            <div class="md:col-span-1 text-right text-3xl text-slate-600">&rarr;</div>
+                        </div>
+                    </div>
+                    <!-- Service Item 4 -->
+                    <div class="service-item gsap-fade-in">
+                        <div class="container mx-auto px-6 py-10 grid md:grid-cols-4 items-center gap-6">
+                            <h3 class="md:col-span-1 text-2xl font-bold text-white">Motion & 3D</h3>
+                            <p class="md:col-span-2 text-slate-400">Bringing your brand to life with captivating
+                                animation and 3D visuals.</p>
+                            <div class="md:col-span-1 text-right text-3xl text-slate-600">&rarr;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works (Horizontal Scroll) -->
+        <section id="work" class="py-20 md:py-40">
+            <div class="container mx-auto px-6 mb-16">
+                <h2 class="section-title max-w-3xl">Our collaborative process<span class="accent-text">.</span></h2>
+            </div>
+            <div id="horizontal-scroll-container" class="relative h-[60vh]">
+                <div class="horizontal-scroll-section flex absolute top-0 left-0">
+                    <!-- Step 1 -->
+                    <div class="w-screen h-[60vh] flex items-center justify-center p-8">
+                        <div class="max-w-md text-left">
+                            <h3 class="text-5xl font-bold mb-4 accent-text">01</h3>
+                            <h4 class="text-2xl font-bold text-white mb-2">Discovery & Strategy</h4>
+                            <p class="text-slate-300">We begin by diving deep into your brand, goals, and audience to
+                                build a strategic foundation.</p>
+                        </div>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="w-screen h-[60vh] flex items-center justify-center p-8">
+                        <div class="max-w-md text-left">
+                            <h3 class="text-5xl font-bold mb-4 accent-text">02</h3>
+                            <h4 class="text-2xl font-bold text-white mb-2">Design & Prototyping</h4>
+                            <p class="text-slate-300">We craft wireframes and high-fidelity, interactive prototypes to
+                                visualize the experience.</p>
+                        </div>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="w-screen h-[60vh] flex items-center justify-center p-8">
+                        <div class="max-w-md text-left">
+                            <h3 class="text-5xl font-bold mb-4 accent-text">03</h3>
+                            <h4 class="text-2xl font-bold text-white mb-2">Development & Build</h4>
+                            <p class="text-slate-300">Our developers bring the designs to life with clean, efficient,
+                                and scalable code.</p>
+                        </div>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="w-screen h-[60vh] flex items-center justify-center p-8">
+                        <div class="max-w-md text-left">
+                            <h3 class="text-5xl font-bold mb-4 accent-text">04</h3>
+                            <h4 class="text-2xl font-bold text-white mb-2">Launch & Growth</h4>
+                            <p class="text-slate-300">We deploy your project and provide ongoing support to ensure
+                                continued success.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-20 md:py-40">
+            <div class="container mx-auto px-6">
+                <div class="max-w-4xl mx-auto text-center">
+                    <p class="text-3xl md:text-4xl leading-snug font-medium text-white gsap-fade-in">
+                        "Infinitix didn't just build us a website; they crafted a digital identity that perfectly
+                        captures our brand's essence. The process was a masterclass in collaboration and creativity."
+                    </p>
+                    <p class="mt-8 text-slate-400 gsap-fade-in">- Jane Doe, CEO of FutureCorp</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Form -->
+        <section id="contact" class="py-20 md:py-40">
+            <div class="container mx-auto px-6">
+                <div class="glass-ui rounded-2xl p-8 md:p-16">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="gsap-fade-in">
+                            <h2 class="section-title mb-4">Let's create something great<span
+                                    class="accent-text">.</span></h2>
+                            <p class="text-slate-300 text-lg">Have a project in mind or just want to say hi? We'd love
+                                to hear from you.</p>
+                        </div>
+                        <form class="space-y-6 gsap-fade-in">
+                            <input type="text" placeholder="Your Name"
+                                class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] transition-all">
+                            <input type="email" placeholder="Your Email"
+                                class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] transition-all">
+                            <textarea placeholder="Tell us about your project..." rows="4"
+                                class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] transition-all"></textarea>
+                            <button type="submit"
+                                class="w-full bg-[var(--accent-color)] hover:bg-blue-600 text-white font-bold py-4 px-6 rounded-lg transition-colors duration-300">
+                                Send Inquiry
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-slate-400">
+        <div class="container mx-auto px-6 py-12">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <p class="text-lg font-bold">Infinitix<span class="accent-text">.</span></p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-white transition-colors">Twitter</a>
+                    <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
+                    <a href="#" class="hover:text-white transition-colors">Instagram</a>
+                </div>
+            </div>
+            <div class="mt-8 border-t border-[var(--border-color)] pt-8 text-center md:text-left text-sm">
+                <p>&copy; 2025 Infinitix Creative. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- Mobile Menu Toggle ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // --- Navbar Scroll Effect ---
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('glass-ui');
+            } else {
+                header.classList.remove('glass-ui');
+            }
+        });
+
+        // --- GSAP Animations ---
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Basic fade-in for sections
+        const gsapFadeIns = document.querySelectorAll('.gsap-fade-in');
+        gsapFadeIns.forEach((el) => {
+            gsap.from(el, {
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none',
+                },
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                ease: 'power3.out',
+            });
+        });
+
+        // Horizontal scroll animation
+        const horizontalSection = document.querySelector('.horizontal-scroll-section');
+        gsap.to(horizontalSection, {
+            x: () => -(horizontalSection.scrollWidth - window.innerWidth),
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '#horizontal-scroll-container',
+                start: 'top top',
+                end: () => "+=" + (horizontalSection.scrollWidth - window.innerWidth),
+                scrub: 1,
+                pin: true,
+                invalidateOnRefresh: true,
+            }
+        });
+
+        // --- Three.js Background Animation ---
+        let scene, camera, renderer, shape;
+
+        function initThree() {
+            const container = document.getElementById('three-canvas-container');
+
+            // Scene
+            scene = new THREE.Scene();
+
+            // Camera
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+
+            // Renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            container.appendChild(renderer.domElement);
+
+            // Shape
+            const geometry = new THREE.TorusKnotGeometry(1.5, 0.3, 100, 16);
+            const material = new THREE.MeshBasicMaterial({
+                color: 0x007CF0,
+                wireframe: true,
+            });
+            shape = new THREE.Mesh(geometry, material);
+            scene.add(shape);
+
+            // Listeners
+            window.addEventListener('resize', onWindowResize, false);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animateThree() {
+            requestAnimationFrame(animateThree);
+
+            shape.rotation.x += 0.001;
+            shape.rotation.y += 0.001;
+
+            renderer.render(scene, camera);
+        }
+
+        initThree();
+        animateThree();
+
+        // Hero text animation
+        gsap.from('.animate-fade-in-up', {
+            opacity: 0,
+            y: 40,
+            duration: 1.2,
+            stagger: 0.2,
+            ease: 'power4.out',
+            delay: 0.5
+        });
+
+    </script>
+</body>
+
+</html>

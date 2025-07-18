@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinitix Creative - A Digital Design Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #111111;
+            --bg-offset: #181818;
+            --text-color: #f0f0f0;
+            --subtle-text-color: #888;
+            --border-color: rgba(255, 255, 255, 0.15);
+            --accent-color: #00BFFF;
+            /* Deep Sky Blue */
+        }
+
+        html.lenis {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* Custom Cursor */
+        #cursor {
+            position: fixed;
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--text-color);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s, opacity 0.3s;
+            z-index: 9999;
+        }
+
+        @media (max-width: 768px) {
+            #cursor {
+                display: none;
+            }
+        }
+
+        #cursor.hover {
+            width: 64px;
+            height: 64px;
+            background-color: rgba(0, 191, 255, 0.2);
+            border-color: var(--accent-color);
+        }
+
+        .section-title {
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 800;
+            line-height: 1.05;
+        }
+
+        /* Line Animation */
+        .line-parent {
+            overflow: hidden;
+        }
+
+        .line-child {
+            transform: translateY(100%);
+        }
+
+        /* Image Reveal */
+        .img-reveal-container {
+            overflow: hidden;
+            border-radius: 1rem;
+        }
+
+        .img-reveal-container img {
+            transform-origin: center;
+            will-change: transform;
+        }
+
+        /* FAQ Styling */
+        .faq-item .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+    <div id="cursor"></div>
+
+    <!-- Header & Navbar -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-6 py-5">
+            <nav class="flex items-center justify-between">
+                <a href="#home" class="text-2xl font-black tracking-tighter cursor-pointer">Infinitix<span
+                        style="color: var(--accent-color);">.</span></a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#about"
+                        class="nav-link text-sm font-medium text-[var(--subtle-text-color)] hover:text-white">About</a>
+                    <a href="#services"
+                        class="nav-link text-sm font-medium text-[var(--subtle-text-color)] hover:text-white">Services</a>
+                    <a href="#work"
+                        class="nav-link text-sm font-medium text-[var(--subtle-text-color)] hover:text-white">Work</a>
+                    <a href="#contact"
+                        class="nav-link text-sm font-medium text-[var(--subtle-text-color)] hover:text-white">Contact</a>
+                </div>
+                <button id="menu-btn"
+                    class="hidden md:inline-block border border-[var(--border-color)] text-sm font-medium py-2 px-6 rounded-full hover:bg-white hover:text-black transition-colors">Menu</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="h-screen flex items-center justify-center text-center">
+            <div class="container mx-auto px-6">
+                <h1 class="section-title">
+                    <span class="line-parent"><span class="line-child">Weaving</span></span>
+                    <span class="line-parent"><span class="line-child">Digital</span></span>
+                    <span class="line-parent"><span class="line-child"
+                            style="color: var(--accent-color);">Futures.</span></span>
+                </h1>
+            </div>
+        </section>
+
+        <!-- Customer Logos Section -->
+        <section id="logos" class="py-16">
+            <div class="container mx-auto px-6">
+                <h3 class="text-center text-[var(--subtle-text-color)] text-sm mb-8 line-parent"><span
+                        class="line-child">Trusted by the world's most innovative companies</span></h3>
+                <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
+                    <img src="https://placehold.co/140x40/111111/555555?text=ClientA" alt="Client Logo A"
+                        class="h-7 opacity-50 hover:opacity-100 transition-opacity duration-300 line-parent"><span
+                        class="line-child"></span>
+                    <img src="https://placehold.co/140x40/111111/555555?text=ClientB" alt="Client Logo B"
+                        class="h-7 opacity-50 hover:opacity-100 transition-opacity duration-300 line-parent"><span
+                        class="line-child"></span>
+                    <img src="https://placehold.co/140x40/111111/555555?text=ClientC" alt="Client Logo C"
+                        class="h-7 opacity-50 hover:opacity-100 transition-opacity duration-300 line-parent"><span
+                        class="line-child"></span>
+                    <img src="https://placehold.co/140x40/111111/555555?text=ClientD" alt="Client Logo D"
+                        class="h-7 opacity-50 hover:opacity-100 transition-opacity duration-300 line-parent"><span
+                        class="line-child"></span>
+                    <img src="https://placehold.co/140x40/111111/555555?text=ClientE" alt="Client Logo E"
+                        class="h-7 opacity-50 hover:opacity-100 transition-opacity duration-300 line-parent"><span
+                        class="line-child"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section with Overlap -->
+        <section id="about" class="py-20 md:py-40">
+            <div class="container mx-auto px-6">
+                <div class="relative grid md:grid-cols-5 gap-8 items-center">
+                    <div class="md:col-span-3 z-10">
+                        <div class="bg-[var(--bg-offset)] p-8 md:p-12 rounded-lg shadow-2xl">
+                            <h2 class="text-3xl md:text-4xl font-bold mb-6 line-parent"><span class="line-child">A
+                                    studio for the new age.</span></h2>
+                            <div class="text-[var(--subtle-text-color)] text-lg space-y-6 leading-relaxed">
+                                <p class="line-parent"><span class="line-child">We are a collective of designers,
+                                        developers, and strategists crafting digital experiences that resonate. We don't
+                                        just build websites; we build ecosystems.</span></p>
+                                <p class="line-parent"><span class="line-child">Our process is fluid, our collaboration
+                                        is deep, and our results are exceptional.</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:col-span-3 md:absolute md:top-1/2 md:right-0 md:w-3/5 md:-translate-y-1/2">
+                        <div class="img-reveal-container"><img
+                                src="https://placehold.co/1000x1200/181818/f0f0f0?text=Studio" alt="Infinitix Studio"
+                                class="w-full object-cover"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-20 md:py-40 bg-[var(--bg-offset)]">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title mb-16 max-w-3xl line-parent"><span class="line-child">Our Capabilities</span>
+                </h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="line-parent">
+                        <div class="line-child">
+                            <h3 class="text-xl font-bold mb-2">Branding & Identity</h3>
+                            <p class="text-[var(--subtle-text-color)]">Crafting memorable brands that tell a compelling
+                                story and stand out from the noise.</p>
+                        </div>
+                    </div>
+                    <div class="line-parent">
+                        <div class="line-child">
+                            <h3 class="text-xl font-bold mb-2">UI/UX & Product Design</h3>
+                            <p class="text-[var(--subtle-text-color)]">Designing intuitive, user-centric interfaces that
+                                offer meaningful digital experiences.</p>
+                        </div>
+                    </div>
+                    <div class="line-parent">
+                        <div class="line-child">
+                            <h3 class="text-xl font-bold mb-2">Web & App Development</h3>
+                            <p class="text-[var(--subtle-text-color)]">Building high-performance, scalable websites and
+                                applications with modern technologies.</p>
+                        </div>
+                    </div>
+                    <div class="line-parent">
+                        <div class="line-child">
+                            <h3 class="text-xl font-bold mb-2">3D & Motion Graphics</h3>
+                            <p class="text-[var(--subtle-text-color)]">Bringing your brand to life with captivating 3D
+                                visuals and fluid motion design.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Work/Portfolio Section -->
+        <section id="work" class="py-20 md:py-40">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title mb-16 max-w-3xl line-parent"><span class="line-child">Featured Work</span></h2>
+                <div class="space-y-24">
+                    <a href="#" class="block group">
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div class="img-reveal-container"><img
+                                    src="https://placehold.co/1000x1200/2a2a2a/f0f0f0?text=Project+One"
+                                    alt="Project One"
+                                    class="w-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out">
+                            </div>
+                            <div>
+                                <h3 class="text-3xl font-bold mb-2">FutureCorp Rebrand</h3>
+                                <p class="text-[var(--subtle-text-color)]">A complete brand overhaul and digital
+                                    platform for a leader in the tech industry.</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="block group">
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div class="md:order-2">
+                                <div class="img-reveal-container"><img
+                                        src="https://placehold.co/1000x1200/3a3a3a/f0f0f0?text=Project+Two"
+                                        alt="Project Two"
+                                        class="w-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out">
+                                </div>
+                            </div>
+                            <div class="md:order-1 md:text-right">
+                                <h3 class="text-3xl font-bold mb-2">QuantumLeap UI</h3>
+                                <p class="text-[var(--subtle-text-color)]">Designing an intuitive user interface for a
+                                    complex data analytics platform.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us Section -->
+        <section id="features" class="py-20 md:py-40 bg-[var(--bg-offset)]">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title mb-16 max-w-4xl line-parent"><span class="line-child">An extension of your
+                        team.</span></h2>
+                <div class="grid md:grid-cols-3 gap-12">
+                    <div class="line-parent">
+                        <div class="line-child">
+                            <h3 class="text-2xl font-bold mb-2 text-[var(--accent-color)]">01.</h3>
+                            <h4 class="text-xl font-bold mb-2">Strategic Approach</h4>
+                            <p class="text-[var(--subtle-text-color)]">We don't just execute; we challenge, we question,
+                                and we strategize to ensure every decision serves a purpose.</p>
+                        </div>
+                    </div>
+                    <div class="line-parent">
+                        <div class="line-child">
+                            <h3 class="text-2xl font-bold mb-2 text-[var(--accent-color)]">02.</h3>
+                            <h4 class="text-xl font-bold mb-2">Radical Transparency</h4>
+                            <p class="text-[var(--subtle-text-color)]">Our process is an open book. You're a
+                                collaborator from day one, with full visibility into our progress and thinking.</p>
+                        </div>
+                    </div>
+                    <div class="line-parent">
+                        <div class="line-child">
+                            <h3 class="text-2xl font-bold mb-2 text-[var(--accent-color)]">03.</h3>
+                            <h4 class="text-xl font-bold mb-2">Uncompromising Quality</h4>
+                            <p class="text-[var(--subtle-text-color)]">We are obsessed with craft. From the smallest
+                                pixel to the largest system, we deliver excellence, always.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-20 md:py-40">
+            <div class="container mx-auto px-6">
+                <div class="max-w-5xl mx-auto text-center">
+                    <p class="text-4xl md:text-5xl leading-tight font-medium"><span class="line-parent"><span
+                                class="line-child">"A masterclass in collaboration</span></span><span
+                            class="line-parent"><span class="line-child">and creativity. Infinitix
+                                didn't</span></span><span class="line-parent"><span class="line-child">just build us a
+                                website; they</span></span><span class="line-parent"><span class="line-child">crafted
+                                our digital identity."</span></span></p>
+                    <p class="mt-8 text-[var(--subtle-text-color)] line-parent"><span class="line-child">- Jane Doe, CEO
+                            of FutureCorp</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Preview Section -->
+        <section id="blog" class="py-20 md:py-40 bg-[var(--bg-offset)]">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title mb-16 max-w-3xl line-parent"><span class="line-child">From the Journal</span>
+                </h2>
+                <div class="space-y-16">
+                    <a href="#" class="block group">
+                        <div class="grid md:grid-cols-12 gap-8 items-center">
+                            <div class="md:col-span-4">
+                                <h3 class="text-2xl font-bold mb-2">The End of Monolithic Design</h3>
+                                <p class="text-[var(--subtle-text-color)]">Exploring the shift towards component-based,
+                                    scalable design systems.</p>
+                            </div>
+                            <div class="md:col-span-8">
+                                <div class="img-reveal-container"><img
+                                        src="https://placehold.co/1200x800/2a2a2a/f0f0f0?text=Blog+One"
+                                        alt="Blog Post One"
+                                        class="w-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out">
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="block group">
+                        <div class="grid md:grid-cols-12 gap-8 items-center">
+                            <div class="md:col-span-4 md:order-2 md:text-right">
+                                <h3 class="text-2xl font-bold mb-2">AI as a Creative Partner</h3>
+                                <p class="text-[var(--subtle-text-color)]">How we're leveraging artificial intelligence
+                                    to augment, not replace, human creativity.</p>
+                            </div>
+                            <div class="md:col-span-8 md:order-1">
+                                <div class="img-reveal-container"><img
+                                        src="https://placehold.co/1200x800/3a3a3a/f0f0f0?text=Blog+Two"
+                                        alt="Blog Post Two"
+                                        class="w-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out">
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-20 md:py-40">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <h2 class="section-title mb-16 text-center line-parent"><span class="line-child">Common Questions</span>
+                </h2>
+                <div class="space-y-4 border-t border-[var(--border-color)]">
+                    <div class="faq-item border-b border-[var(--border-color)] line-parent">
+                        <div class="line-child"><button
+                                class="faq-question w-full flex justify-between items-center text-left py-6"><span
+                                    class="text-xl font-semibold">What is your typical project timeline?</span><span
+                                    class="faq-icon text-3xl font-light transform transition-transform duration-300">+</span></button>
+                            <div class="faq-answer px-1 pb-4 text-[var(--subtle-text-color)]">
+                                <p>While this varies, a typical end-to-end project takes 8-12 weeks. We prioritize
+                                    quality and craft over rushed deadlines.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item border-b border-[var(--border-color)] line-parent">
+                        <div class="line-child"><button
+                                class="faq-question w-full flex justify-between items-center text-left py-6"><span
+                                    class="text-xl font-semibold">How do you price your services?</span><span
+                                    class="faq-icon text-3xl font-light transform transition-transform duration-300">+</span></button>
+                            <div class="faq-answer px-1 pb-4 text-[var(--subtle-text-color)]">
+                                <p>We quote on a per-project basis after a thorough discovery phase. We believe in
+                                    value-based pricing, not just counting hours.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item border-b border-[var(--border-color)] line-parent">
+                        <div class="line-child"><button
+                                class="faq-question w-full flex justify-between items-center text-left py-6"><span
+                                    class="text-xl font-semibold">What kind of clients do you work with?</span><span
+                                    class="faq-icon text-3xl font-light transform transition-transform duration-300">+</span></button>
+                            <div class="faq-answer px-1 pb-4 text-[var(--subtle-text-color)]">
+                                <p>We partner with ambitious companies of all sizes, from venture-backed startups to
+                                    established industry leaders who are passionate about making an impact.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA / Footer -->
+        <section id="contact" class="py-20 md:py-40 bg-[var(--bg-offset)]">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="section-title mb-8"><span class="line-parent"><span class="line-child">Have a
+                            project?</span></span></h2>
+                <a href="mailto:hello@infinitix.com"
+                    class="inline-block text-3xl md:text-5xl font-medium relative group"><span class="line-parent"><span
+                            class="line-child">Let's talk</span></span><span
+                        class="absolute bottom-0 left-0 w-full h-0.5 bg-[var(--accent-color)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left"></span></a>
+                <div
+                    class="mt-24 pt-12 border-t border-[var(--border-color)] flex flex-col md:flex-row justify-between items-center gap-8 text-sm text-[var(--subtle-text-color)]">
+                    <p>&copy; 2025 Infinitix Creative</p>
+                    <div class="flex space-x-6"><a href="#" class="hover:text-white transition-colors">Twitter</a><a
+                            href="#" class="hover:text-white transition-colors">LinkedIn</a><a href="#"
+                            class="hover:text-white transition-colors">Instagram</a></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.0.45/dist/lenis.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Smooth Scrolling with Lenis ---
+            const lenis = new Lenis();
+            function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+            requestAnimationFrame(raf);
+
+            // --- Custom Cursor ---
+            const cursor = document.getElementById('cursor');
+            if (window.innerWidth > 768) {
+                const links = document.querySelectorAll('a, button, .group, .faq-question');
+                window.addEventListener('mousemove', e => { gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.3, ease: 'power3.out' }); });
+                links.forEach(link => {
+                    link.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                    link.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+                });
+            }
+
+            // --- GSAP Animations ---
+            gsap.registerPlugin(ScrollTrigger);
+
+            // --- Line Reveal Animation ---
+            const lines = document.querySelectorAll(".line-child");
+            lines.forEach(line => {
+                gsap.to(line, { y: 0, duration: 1.2, ease: 'power4.out', scrollTrigger: { trigger: line.closest('.line-parent'), start: 'top 85%', toggleActions: 'play none none none' } });
+            });
+            gsap.to('#home .line-child', { y: 0, duration: 1.5, ease: 'power4.out', stagger: 0.15, delay: 0.2 });
+
+            // --- Image Reveal Animation ---
+            document.querySelectorAll(".img-reveal-container").forEach(container => {
+                const img = container.querySelector("img");
+                gsap.fromTo(img, { scale: 1.3, y: '20%' }, { scale: 1, y: '0%', duration: 1.5, ease: 'power4.out', scrollTrigger: { trigger: container, start: 'top 90%', toggleActions: 'play none none none' } });
+            });
+
+            // --- FAQ Accordion ---
+            document.querySelectorAll('.faq-item').forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const wasActive = item.classList.contains('active');
+                    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+                    if (!wasActive) { item.classList.add('active'); }
+                });
+            });
+
+            // --- Menu Button Placeholder ---
+            document.getElementById('menu-btn').addEventListener('click', () => { alert('Full-screen menu would open here!'); });
+        });
+    </script>
+</body>
+
+</html>

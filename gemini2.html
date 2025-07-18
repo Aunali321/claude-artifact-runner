@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinitix Creative | Where Ideas Take Form</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- AOS (Animate on Scroll) Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* ------------------- */
+        /* --- GLOBAL STYLES & VARIABLES --- */
+        /* ------------------- */
+        :root {
+            --bg-dark: #05050A;
+            --bg-card: #111118;
+            --primary-accent: #4F46E5;
+            --primary-accent-hover: #4338CA;
+            --text-primary: #EAEAF2;
+            --text-secondary: #9090A0;
+            --border-color: #252530;
+            --glass-bg: rgba(17, 17, 24, 0.6);
+
+            --font-heading: 'Syne', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section {
+            padding: 120px 0;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        p {
+            color: var(--text-secondary);
+            max-width: 600px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-accent);
+            color: var(--text-primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2);
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--border-color);
+            color: var(--text-primary);
+        }
+
+        /* ------------------- */
+        /* --- 1. NAVBAR --- */
+        /* ------------------- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar.scrolled {
+            background-color: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* ------------------- */
+        /* --- 2. HERO HEADER --- */
+        /* ------------------- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            padding: 0;
+            position: relative;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 6rem;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin: 20px auto 40px;
+            max-width: 700px;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .scroll-down::after {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 40px;
+            background: var(--text-secondary);
+            margin: 10px auto 0;
+            animation: scroll-pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes scroll-pulse {
+            0% {
+                transform: scaleY(0);
+                transform-origin: top;
+            }
+
+            50% {
+                transform: scaleY(1);
+                transform-origin: top;
+            }
+
+            51% {
+                transform: scaleY(1);
+                transform-origin: bottom;
+            }
+
+            100% {
+                transform: scaleY(0);
+                transform-origin: bottom;
+            }
+        }
+
+        /* ------------------- */
+        /* --- 3. ABOUT SECTION --- */
+        /* ------------------- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-grid h2 {
+            text-align: left;
+            margin-bottom: 20px;
+            font-size: 3.5rem;
+        }
+
+        .about-grid p {
+            max-width: 100%;
+        }
+
+        .about-visual {
+            background: linear-gradient(145deg, var(--primary-accent) 0%, #8b5cf6 100%);
+            border-radius: 16px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            /* Placeholder for a video or an animated graphic */
+            color: rgba(255, 255, 255, 0.1);
+            font-family: var(--font-heading);
+            font-size: 6rem;
+            font-weight: 800;
+        }
+
+        /* ------------------- */
+        /* --- 4. SERVICES SECTION --- */
+        /* ------------------- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: var(--bg-card);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-accent);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .service-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .service-card .icon {
+            font-size: 2.5rem;
+            color: var(--primary-accent);
+            margin-bottom: 20px;
+        }
+
+        /* ------------------- */
+        /* --- 5. WHY CHOOSE US --- */
+        /* ------------------- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-item h3 {
+            margin-bottom: 10px;
+        }
+
+        .feature-item .icon {
+            font-size: 2rem;
+            color: var(--primary-accent);
+            margin-bottom: 15px;
+        }
+
+        /* ------------------- */
+        /* --- 6. CUSTOMER LOGOS --- */
+        /* ------------------- */
+        .logos {
+            background-color: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logos h2 {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .logo-marquee {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .logo-track {
+            display: flex;
+            width: calc(200px * 16);
+            /* 200px per logo, 8 logos duplicated */
+            animation: scroll-logos 40s linear infinite;
+        }
+
+        .logo-item {
+            width: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: grayscale(1) brightness(0.7);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .logo-item:hover {
+            filter: grayscale(0) brightness(1);
+            opacity: 1;
+        }
+
+        @keyframes scroll-logos {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(calc(-200px * 8));
+            }
+
+            /* Scroll by the length of the original 8 logos */
+        }
+
+        /* ------------------- */
+        /* --- 7. TESTIMONIALS --- */
+        /* ------------------- */
+        .testimonial-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 80px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card .quote {
+            font-family: var(--font-heading);
+            font-size: 2.25rem;
+            line-height: 1.4;
+            margin-bottom: 30px;
+            color: var(--text-primary);
+        }
+
+        .testimonial-card .author {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .testimonial-card .author-title {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ------------------- */
+        /* --- 8. HOW IT WORKS --- */
+        /* ------------------- */
+        .process-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .process-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20px;
+            height: 100%;
+            width: 2px;
+            background: var(--border-color);
+            z-index: -1;
+        }
+
+        .process-step {
+            padding-left: 60px;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .process-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -5px;
+            top: -5px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .process-step h3 {
+            margin-bottom: 10px;
+        }
+
+        /* ------------------- */
+        /* --- 9. BLOG PREVIEW --- */
+        /* ------------------- */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .blog-card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .blog-card-image {
+            height: 200px;
+            background-color: var(--border-color);
+            /* Placeholder for image */
+        }
+
+        .blog-card-content {
+            padding: 30px;
+        }
+
+        .blog-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .blog-card a {
+            color: var(--primary-accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* ------------------- */
+        /* --- 10. CTA FORM --- */
+        /* ------------------- */
+        .cta-section {
+            background-color: var(--bg-card);
+            border-radius: 20px;
+        }
+
+        .cta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .cta-grid h2 {
+            text-align: left;
+            font-size: 3.5rem;
+        }
+
+        .cta-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .cta-form input,
+        .cta-form textarea,
+        .cta-form select {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+        }
+
+        .cta-form input:focus,
+        .cta-form textarea:focus,
+        .cta-form select:focus {
+            outline: none;
+            border-color: var(--primary-accent);
+        }
+
+        /* ------------------- */
+        /* --- 11. FAQ --- */
+        /* ------------------- */
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 25px 0;
+        }
+
+        .faq-item summary {
+            font-size: 1.25rem;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            /* Hide default marker */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-item summary::after {
+            content: '+';
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--primary-accent);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-item div {
+            padding-top: 15px;
+            color: var(--text-secondary);
+            max-width: 90%;
+        }
+
+        /* ------------------- */
+        /* --- 12. FOOTER --- */
+        /* ------------------- */
+        .footer {
+            background-color: var(--bg-card);
+            padding-top: 80px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h4 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col a:hover {
+            color: var(--primary-accent);
+        }
+
+        .footer-bottom {
+            padding: 30px 0;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ------------------- */
+        /* --- RESPONSIVENESS --- */
+        /* ------------------- */
+        @media (max-width: 992px) {
+            h2 {
+                font-size: 2.5rem;
+            }
+
+            .hero h1 {
+                font-size: 4rem;
+            }
+
+            .about-grid,
+            .cta-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-visual {
+                height: 300px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 80px 0;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            /* Basic mobile menu handling */
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 1. NAVBAR -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="#" class="logo">Infinitix</a>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#testimonials">Work</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#blog">Blog</a></li>
+            </ul>
+            <a href="#cta" class="btn btn-primary">Start a Project</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- 2. HERO HEADER SECTION -->
+        <header class="hero" id="hero-section">
+            <div class="container hero-content" data-aos="fade-up">
+                <h1>Where Ideas Take Form.</h1>
+                <p>We are a multidisciplinary creative studio engineering digital experiences that connect, inspire, and
+                    perform.</p>
+                <a href="#services" class="btn btn-secondary">Explore Our Canvas</a>
+            </div>
+            <div class="scroll-down">Scroll</div>
+        </header>
+
+        <!-- 3. ABOUT SECTION -->
+        <section id="about" class="about">
+            <div class="container about-grid" data-aos="fade-up">
+                <div class="about-text">
+                    <h2>We Don't Just Build. We Architect Belief.</h2>
+                    <p>At Infinitix, creativity isn't a department; it's our core element. We are a collective of
+                        designers, developers, and strategists obsessed with the intersection of beauty and function. We
+                        believe the best digital experiences are not just seen or used, but *felt*. Our passion is
+                        transforming ambitious visions into tangible, impactful realities.</p>
+                </div>
+                <div class="about-visual" data-aos="fade-left">
+                    PROCESS
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. SERVICES SECTION -->
+        <section id="services">
+            <div class="container">
+                <h2 data-aos="fade-up">A Spectrum of Creation.</h2>
+                <div class="services-grid">
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="icon">⌖</div>
+                        <h3>Digital Architecture</h3>
+                        <p>Building robust, scalable web and mobile platforms for the future.</p>
+                    </div>
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="icon">⎎</div>
+                        <h3>Brand Cartography</h3>
+                        <p>Charting unique identities that navigate the market and captivate audiences.</p>
+                    </div>
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="icon">⏧</div>
+                        <h3>Human-Centric Interfaces</h3>
+                        <p>Designing intuitive UI/UX journeys that delight users and drive conversion.</p>
+                    </div>
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="icon">⏵</div>
+                        <h3>Narrative in Motion</h3>
+                        <p>Crafting compelling video and 3D animation that tells your brand's story.</p>
+                    </div>
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="icon">⌗</div>
+                        <h3>Growth Engines</h3>
+                        <p>Fueling audience engagement and measurable results with digital marketing.</p>
+                    </div>
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="icon">⟐</div>
+                        <h3>Content Alchemy</h3>
+                        <p>Transforming raw ideas into compelling content that builds brand authority.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. WHY CHOOSE US / FEATURES -->
+        <section id="why-choose-us">
+            <div class="container">
+                <h2 data-aos="fade-up">The Method Behind the Magic.</h2>
+                <div class="features-grid">
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="icon">🤝</div>
+                        <h3>Strategic Partnership</h3>
+                        <p>We embed ourselves in your team. Your goals become our goals. We're more than a vendor; we're
+                            your creative extension.</p>
+                    </div>
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="icon">💎</div>
+                        <h3>Pixel-Perfect Craft</h3>
+                        <p>From the grandest strategy to the smallest animation, we obsess over every detail to ensure
+                            uncompromising quality.</p>
+                    </div>
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="icon">🧠</div>
+                        <h3>Aesthetic Intelligence</h3>
+                        <p>Our work isn't just beautiful; it's smart. Every design choice is backed by data, strategy,
+                            and user behavior.</p>
+                    </div>
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="400">
+                        <div class="icon">🚀</div>
+                        <h3>Transparent Velocity</h3>
+                        <p>We pair agile workflows with clear communication, ensuring your project moves forward with
+                            purpose and predictability.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. CUSTOMER LOGOS SECTION -->
+        <section class="logos">
+            <div class="container">
+                <h2 data-aos="fade-up">Trusted by Industry Vanguards</h2>
+                <div class="logo-marquee">
+                    <div class="logo-track">
+                        <!-- Add 8 client logos (as images or text). They are duplicated for a seamless loop. -->
+                        <div class="logo-item">
+                            <h4>FutureCorp</h4>
+                        </div>
+                        <div class="logo-item">
+                            <h4>NEXUS</h4>
+                        </div>
+                        <div class="logo-item">
+                            <h4>Quantum</h4>
+                        </div>
+                        <div class="logo-item">
+                            <h4>Aperture</h4>
+                        </div>
+                        <div class="logo-item">
+                            <h4>Evolve</h4>
+                        </div>
+                        <div class="logo-item">
+                            <h4>Zenith</h4>
+                        </div>
+                        <div class="logo-item">
+                            <h4>Vertex</h4>
+                        </div>
+                        <div class="logo-item">
+                            <h4>Orbit</h4>
+                        </div>
+                        <!-- Duplicates -->
+                        <div class="logo-item">
+                            <h4>FutureCorp</h4>
+                        </div>
+                        <div class="logo-item">
+                            <h4>NEXUS</h4>
+                        </div>
+                        <div class="logo-item">
+                            <h4>Quantum</h4>
+                        </div>
+                        <div class="logo-item">
+                            <h4>Aperture</h4>
+                        </div>
+                        <div class="logo-item">
+                            <h4>Evolve</h4>
+                        </div>
+                        <div class="logo-item">
+                            <h4>Zenith</h4>
+                        </div>
+                        <div class="logo-item">
+                            <h4>Vertex</h4>
+                        </div>
+                        <div class="logo-item">
+                            <h4>Orbit</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. TESTIMONIALS SECTION -->
+        <section id="testimonials">
+            <div class="container">
+                <h2 data-aos="fade-up">Stories of Transformation.</h2>
+                <div class="testimonial-card" data-aos="fade-up">
+                    <p class="quote">"Infinitix didn't just deliver a website; they delivered a new digital reality for
+                        our brand. The process was as beautiful as the final product."</p>
+                    <p class="author">Jane Doe</p>
+                    <p class="author-title">CEO at FutureCorp</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. HOW IT WORKS SECTION -->
+        <section id="process">
+            <div class="container">
+                <h2 data-aos="fade-up">From Concept to Culmination.</h2>
+                <div class="process-container">
+                    <div class="process-step" data-step="01" data-aos="fade-left">
+                        <h3>IMMERSE</h3>
+                        <p>We dive deep into your world—your vision, your audience, your challenges. This is the
+                            foundation of everything we build.</p>
+                    </div>
+                    <div class="process-step" data-step="02" data-aos="fade-left">
+                        <h3>BLUEPRINT</h3>
+                        <p>We architect a strategic plan, creating wireframes and roadmaps that define the path to
+                            success with absolute clarity.</p>
+                    </div>
+                    <div class="process-step" data-step="03" data-aos="fade-left">
+                        <h3>CREATE</h3>
+                        <p>Our designers and developers bring the vision to life through iterative sprints and
+                            collaborative feedback loops.</p>
+                    </div>
+                    <div class="process-step" data-step="04" data-aos="fade-left">
+                        <h3>LAUNCH & EVOLVE</h3>
+                        <p>We deploy the final product and remain your partner for growth, analysis, and future
+                            iterations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. BLOG PREVIEW SECTION -->
+        <section id="blog">
+            <div class="container">
+                <h2 data-aos="fade-up">From Our Studio.</h2>
+                <div class="blog-grid">
+                    <div class="blog-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="blog-card-image"></div>
+                        <div class="blog-card-content">
+                            <h3>The Art of 'Less': Minimalism in UI/UX</h3>
+                            <p>Exploring how strategic emptiness can lead to more engaging user experiences.</p>
+                            <a href="#">Read More →</a>
+                        </div>
+                    </div>
+                    <div class="blog-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="blog-card-image"></div>
+                        <div class="blog-card-content">
+                            <h3>Beyond the Logo: Building a Brand Identity</h3>
+                            <p>A deep dive into the elements that create a memorable and resilient brand.</p>
+                            <a href="#">Read More →</a>
+                        </div>
+                    </div>
+                    <div class="blog-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="blog-card-image"></div>
+                        <div class="blog-card-content">
+                            <h3>Headless CMS vs. Monolith: A 2024 Guide</h3>
+                            <p>Which architecture is right for your next big web project? We break it down.</p>
+                            <a href="#">Read More →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. CTA FORM -->
+        <section id="cta">
+            <div class="container cta-section" data-aos="fade-up">
+                <div class="container cta-grid">
+                    <div class="cta-text">
+                        <h2>Have an Idea Brewing?</h2>
+                        <p>Let's talk about it. Tell us your challenge, and we'll start mapping out the solution. No
+                            obligation, just a conversation about what's possible.</p>
+                    </div>
+                    <form class="cta-form">
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <select name="interest">
+                                <option value="">I'm interested in...</option>
+                                <option value="web">Web Development</option>
+                                <option value="branding">Branding & Design</option>
+                                <option value="video">Video & 3D</option>
+                                <option value="marketing">Digital Marketing</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" rows="4" placeholder="Tell us about your project..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send the Brief</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 11. FAQ -->
+        <section id="faq">
+            <div class="container">
+                <h2 data-aos="fade-up">Common Questions.</h2>
+                <div class="faq-list" data-aos="fade-up">
+                    <details class="faq-item">
+                        <summary>What types of clients do you work with?</summary>
+                        <div>
+                            <p>We partner with a diverse range of clients, from ambitious startups to established
+                                enterprise companies. Our ideal partner is anyone who values high-quality design and
+                                robust engineering, and is looking for a collaborative, long-term creative partnership.
+                            </p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>How long does a typical project take?</summary>
+                        <div>
+                            <p>Project timelines vary greatly depending on the scope. A branding project might take 4-6
+                                weeks, while a complex web application could take 4-6 months or more. After our initial
+                                'Immerse' phase, we provide a detailed project roadmap with clear timelines.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>What is your pricing structure?</summary>
+                        <div>
+                            <p>We offer both project-based pricing and retainer models for ongoing work. Every project
+                                is unique, so we provide a custom proposal after our initial discovery call. We focus on
+                                delivering value and a clear ROI, not just hours.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>How do we start a project with Infinitix?</summary>
+                        <div>
+                            <p>The best way to start is by filling out the contact form below. Tell us a bit about your
+                                project and your goals. We'll get back to you within one business day to schedule a
+                                discovery call and see if we're a good fit.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 12. FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="#" class="logo">Infinitix</a>
+                    <p>Engineering Emotion. Designing Reality.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigate</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#testimonials">Work</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">Behance</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="mailto:hello@infinitix.com">hello@infinitix.com</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Start a Conversation</h4>
+                    <p>Ready to build the future?</p>
+                    <a href="#cta" class="btn btn-secondary" style="margin-top: 10px;">Let's Talk</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 Infinitix Creative. All Rights Reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Vanta.js for Animated Background -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
+
+    <!-- AOS.js for Scroll Animations -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        // --- Initialize Libraries on DOM Content Loaded ---
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // --- VANTA.js Animated Hero Background ---
+            // This creates the dynamic "fog" animation in the hero section.
+            // You can change 'FOG' to 'WAVES', 'NET', 'CLOUDS', etc. to try different effects.
+            // Customize colors to match your brand palette.
+            VANTA.FOG({
+                el: "#hero-section",
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                highlightColor: 0x4f46e5, // Corresponds to --primary-accent
+                midtoneColor: 0x8b5cf6, // A complementary purple
+                lowlightColor: 0x111118,  // Corresponds to --bg-card
+                baseColor: 0x5050a,     // Corresponds to --bg-dark
+                blurFactor: 0.60,
+                speed: 1.20,
+                zoom: 0.80
+            });
+
+            // --- AOS.js Scroll Animations ---
+            // This initializes all the 'data-aos' attributes for fade-in effects.
+            AOS.init({
+                duration: 800, // Animation duration
+                once: true, // Whether animation should happen only once - while scrolling down
+                offset: 50, // Offset (in px) from the original trigger point
+            });
+
+            // --- Navbar Scroll Effect ---
+            // This adds a 'scrolled' class to the navbar when the user scrolls down.
+            const navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>
