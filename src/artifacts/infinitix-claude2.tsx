@@ -11,7 +11,7 @@ const HomePage = () => {
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
 
@@ -23,7 +23,7 @@ const HomePage = () => {
 
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('scroll', handleScroll);
-    
+
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
@@ -47,10 +47,10 @@ const HomePage = () => {
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white overflow-hidden cursor-none">
       {/* Custom Cursor */}
-      <div 
+      <div
         ref={cursorRef}
         className={`fixed w-6 h-6 border border-white/50 rounded-full pointer-events-none z-[100] transition-all duration-300 ${isHovering ? 'scale-150 bg-white/10' : ''}`}
-        style={{ 
+        style={{
           transform: `translate(${mousePosition.x - 12}px, ${mousePosition.y - 12}px)`,
           transition: 'transform 0.1s ease-out'
         }}
@@ -58,7 +58,7 @@ const HomePage = () => {
 
       {/* Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-[1px] bg-white/10 z-50">
-        <div 
+        <div
           className="h-full bg-white transition-all duration-300"
           style={{ width: `${scrollProgress}%` }}
         />
@@ -76,7 +76,7 @@ const HomePage = () => {
         <div className="px-8 md:px-16 py-8">
           <div className="flex items-center justify-between">
             <div className="text-2xl font-light tracking-wider">INFINITIX</div>
-            
+
             <div className="hidden md:flex items-center space-x-12">
               <a href="#work" className="text-sm tracking-wider hover:opacity-60 transition-opacity" onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>WORK</a>
               <a href="#about" className="text-sm tracking-wider hover:opacity-60 transition-opacity" onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>ABOUT</a>
@@ -109,9 +109,9 @@ const HomePage = () => {
           <div className="max-w-7xl mx-auto">
             <div className="space-y-8">
               <div className="overflow-hidden">
-                <h1 
+                <h1
                   className="text-[clamp(3rem,10vw,8rem)] font-thin leading-[0.9] tracking-tight"
-                  style={{ 
+                  style={{
                     transform: `translateY(${scrollProgress * 0.3}px)`,
                     opacity: 1 - scrollProgress * 0.01
                   }}
@@ -120,9 +120,9 @@ const HomePage = () => {
                 </h1>
               </div>
               <div className="overflow-hidden">
-                <h1 
+                <h1
                   className="text-[clamp(3rem,10vw,8rem)] font-thin leading-[0.9] tracking-tight"
-                  style={{ 
+                  style={{
                     transform: `translateY(${scrollProgress * 0.5}px)`,
                     opacity: 1 - scrollProgress * 0.01
                   }}
@@ -130,20 +130,20 @@ const HomePage = () => {
                   STUDIO
                 </h1>
               </div>
-              
+
               <div className="flex items-start justify-between mt-16">
                 <div className="max-w-md">
                   <p className="text-lg font-light leading-relaxed text-white/70">
-                    We craft digital experiences that transcend the ordinary. 
+                    We craft digital experiences that transcend the ordinary.
                     Where art meets technology, and vision becomes reality.
                   </p>
                 </div>
-                
+
                 <div className="hidden md:block">
-                  <a 
+                  <a
                     href="#work"
                     className="group flex items-center gap-4 text-sm tracking-wider"
-                    onMouseEnter={() => setIsHovering(true)} 
+                    onMouseEnter={() => setIsHovering(true)}
                     onMouseLeave={() => setIsHovering(false)}
                   >
                     <span>VIEW PROJECTS</span>
@@ -175,15 +175,15 @@ const HomePage = () => {
               </h2>
               <div className="w-20 h-[1px] bg-white/30 mb-8"></div>
               <p className="text-lg font-light leading-relaxed text-white/70 mb-6">
-                A collective of designers, developers, and dreamers. We believe in the power of 
+                A collective of designers, developers, and dreamers. We believe in the power of
                 thoughtful design to shape experiences, influence culture, and drive meaningful change.
               </p>
               <p className="text-lg font-light leading-relaxed text-white/70">
-                Our approach is rooted in collaboration, innovation, and an unwavering commitment 
+                Our approach is rooted in collaboration, innovation, and an unwavering commitment
                 to craft. Every project is an opportunity to push boundaries and create something extraordinary.
               </p>
             </div>
-            
+
             <div className="relative">
               <div className="aspect-square bg-white/5 backdrop-blur-sm rounded-lg overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
@@ -213,13 +213,13 @@ const HomePage = () => {
       <section id="services" className="py-32 px-8 md:px-16">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-6xl md:text-7xl font-thin mb-20">SERVICES</h2>
-          
+
           <div className="space-y-0">
             {services.map((service, idx) => (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 className="group border-t border-white/10 hover:bg-white/5 transition-all duration-500"
-                onMouseEnter={() => setIsHovering(true)} 
+                onMouseEnter={() => setIsHovering(true)}
                 onMouseLeave={() => setIsHovering(false)}
               >
                 <div className="py-12 flex items-center justify-between">
@@ -249,19 +249,19 @@ const HomePage = () => {
         <div className="max-w-7xl mx-auto">
           <div className="flex items-end justify-between mb-20">
             <h2 className="text-6xl md:text-7xl font-thin">FEATURED<br />WORK</h2>
-            <a 
-              href="#" 
+            <a
+              href="#"
               className="text-sm tracking-wider hover:opacity-60 transition-opacity"
-              onMouseEnter={() => setIsHovering(true)} 
+              onMouseEnter={() => setIsHovering(true)}
               onMouseLeave={() => setIsHovering(false)}
             >
               VIEW ALL PROJECTS →
             </a>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-8">
             {projects.map((project, idx) => (
-              <div 
+              <div
                 key={idx}
                 className="group relative"
                 onMouseEnter={() => { setActiveProject(idx); setIsHovering(true); }}
@@ -292,19 +292,19 @@ const HomePage = () => {
       <section className="py-32 px-8 md:px-16 bg-white/5">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-6xl md:text-7xl font-thin mb-20">PROCESS</h2>
-          
+
           <div className="grid md:grid-cols-4 gap-8">
             {['Discover', 'Define', 'Design', 'Deliver'].map((step, idx) => (
               <div key={idx} className="text-center">
                 <div className="mb-6">
                   <svg className="w-24 h-24 mx-auto" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="40" fill="none" stroke="white" strokeWidth="0.5" opacity="0.2" />
-                    <circle 
-                      cx="50" 
-                      cy="50" 
-                      r="40" 
-                      fill="none" 
-                      stroke="white" 
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="40"
+                      fill="none"
+                      stroke="white"
                       strokeWidth="0.5"
                       strokeDasharray={`${(idx + 1) * 25} 1000`}
                       className="animate-spin-slow"
@@ -326,57 +326,57 @@ const HomePage = () => {
             <div>
               <h2 className="text-6xl md:text-7xl font-thin mb-8">LET'S<br />CREATE</h2>
               <p className="text-lg font-light text-white/70 mb-12">
-                Ready to transform your vision into reality? 
+                Ready to transform your vision into reality?
                 We're always excited to collaborate on new challenges.
               </p>
-              
+
               <div className="space-y-6">
-                <a 
-                  href="mailto:hello@infinitix.studio" 
+                <a
+                  href="mailto:hello@infinitix.studio"
                   className="block text-2xl font-light hover:opacity-60 transition-opacity"
-                  onMouseEnter={() => setIsHovering(true)} 
+                  onMouseEnter={() => setIsHovering(true)}
                   onMouseLeave={() => setIsHovering(false)}
                 >
                   hello@infinitix.studio
                 </a>
-                <a 
-                  href="tel:+14155551234" 
+                <a
+                  href="tel:+14155551234"
                   className="block text-2xl font-light hover:opacity-60 transition-opacity"
-                  onMouseEnter={() => setIsHovering(true)} 
+                  onMouseEnter={() => setIsHovering(true)}
                   onMouseLeave={() => setIsHovering(false)}
                 >
                   +1 415 555 1234
                 </a>
               </div>
-              
+
               <div className="flex gap-8 mt-12">
                 <a href="#" className="text-sm tracking-wider hover:opacity-60 transition-opacity">INSTAGRAM</a>
                 <a href="#" className="text-sm tracking-wider hover:opacity-60 transition-opacity">BEHANCE</a>
                 <a href="#" className="text-sm tracking-wider hover:opacity-60 transition-opacity">DRIBBBLE</a>
               </div>
             </div>
-            
+
             <div className="flex items-end">
               <div className="w-full">
                 <div className="space-y-8">
-                  <input 
-                    type="text" 
-                    placeholder="NAME" 
+                  <input
+                    type="text"
+                    placeholder="NAME"
                     className="w-full bg-transparent border-b border-white/20 pb-4 focus:outline-none focus:border-white transition-colors placeholder:text-white/30"
                   />
-                  <input 
-                    type="email" 
-                    placeholder="EMAIL" 
+                  <input
+                    type="email"
+                    placeholder="EMAIL"
                     className="w-full bg-transparent border-b border-white/20 pb-4 focus:outline-none focus:border-white transition-colors placeholder:text-white/30"
                   />
-                  <textarea 
-                    placeholder="MESSAGE" 
-                    rows="4" 
+                  <textarea
+                    placeholder="MESSAGE"
+                    rows={4}
                     className="w-full bg-transparent border-b border-white/20 pb-4 focus:outline-none focus:border-white transition-colors resize-none placeholder:text-white/30"
                   ></textarea>
-                  <button 
+                  <button
                     className="group flex items-center gap-4 mt-8"
-                    onMouseEnter={() => setIsHovering(true)} 
+                    onMouseEnter={() => setIsHovering(true)}
                     onMouseLeave={() => setIsHovering(false)}
                   >
                     <span className="text-sm tracking-wider">SEND MESSAGE</span>

@@ -56,7 +56,7 @@ const HomePage = () => {
               </div>
               <span className="text-2xl font-bold">Infinitix</span>
             </div>
-            
+
             <div className="hidden lg:flex items-center space-x-8">
               <a href="#" className="hover:text-purple-400 transition-colors">Home</a>
               <a href="#about" className="hover:text-purple-400 transition-colors">About</a>
@@ -82,7 +82,7 @@ const HomePage = () => {
             <Sparkles className="w-4 h-4 text-purple-400" />
             <span className="text-sm">Welcome to the Future of Design</span>
           </div>
-          
+
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
             <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
               Where Creativity
@@ -90,11 +90,11 @@ const HomePage = () => {
             <br />
             <span className="text-white">Meets Innovation</span>
           </h1>
-          
+
           <p className="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto">
             We craft digital experiences that captivate, engage, and inspire. Your vision, our expertise, infinite possibilities.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="group bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-4 rounded-full text-lg font-semibold hover:shadow-2xl hover:shadow-purple-500/50 transition-all transform hover:scale-105 flex items-center justify-center gap-2">
               Start Your Journey
@@ -105,7 +105,7 @@ const HomePage = () => {
             </button>
           </div>
         </div>
-        
+
         <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
           <ChevronDown className="w-8 h-8 text-white/50" />
         </div>
@@ -144,7 +144,7 @@ const HomePage = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl blur-3xl opacity-30"></div>
               <div className="relative bg-gradient-to-br from-purple-900/50 to-pink-900/50 rounded-3xl p-8 backdrop-blur-xl border border-white/10">
@@ -184,7 +184,7 @@ const HomePage = () => {
               From concept to launch, we offer a complete suite of creative services designed to make your brand unstoppable.
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, idx) => (
               <div key={idx} className="group relative">
@@ -213,7 +213,7 @@ const HomePage = () => {
               Why Brands Choose
               <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"> Infinitix</span>
             </h2>
-            
+
             <div className="grid md:grid-cols-3 gap-8">
               <div className="text-center">
                 <div className="w-20 h-20 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -260,7 +260,7 @@ const HomePage = () => {
             What Our
             <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"> Clients Say</span>
           </h2>
-          
+
           <div className="grid md:grid-cols-3 gap-6">
             {testimonials.map((testimonial, idx) => (
               <div key={idx} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8">
@@ -287,7 +287,7 @@ const HomePage = () => {
             Our Creative
             <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"> Process</span>
           </h2>
-          
+
           <div className="grid md:grid-cols-4 gap-8">
             {['Discover', 'Design', 'Develop', 'Deliver'].map((step, idx) => (
               <div key={idx} className="text-center">
@@ -314,7 +314,7 @@ const HomePage = () => {
               View all posts <ArrowRight className="w-4 h-4" />
             </a>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-6">
             {[1, 2, 3].map((i) => (
               <article key={i} className="group cursor-pointer">
@@ -347,7 +347,7 @@ const HomePage = () => {
               <div className="grid md:grid-cols-2 gap-6 mt-10">
                 <input type="text" placeholder="Your Name" className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-6 py-4 focus:outline-none focus:border-white/50 transition-colors" />
                 <input type="email" placeholder="Your Email" className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-6 py-4 focus:outline-none focus:border-white/50 transition-colors" />
-                <textarea placeholder="Tell us about your project" rows="4" className="md:col-span-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-6 py-4 focus:outline-none focus:border-white/50 transition-colors resize-none"></textarea>
+                <textarea placeholder="Tell us about your project" rows={4} className="md:col-span-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-6 py-4 focus:outline-none focus:border-white/50 transition-colors resize-none"></textarea>
                 <button className="md:col-span-2 bg-gradient-to-r from-yellow-500 to-orange-500 px-8 py-4 rounded-lg font-semibold hover:shadow-2xl hover:shadow-orange-500/50 transition-all transform hover:scale-105">
                   Send Message
                 </button>
@@ -364,7 +364,7 @@ const HomePage = () => {
             Frequently Asked
             <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"> Questions</span>
           </h2>
-          
+
           <div className="space-y-4">
             {faqs.map((faq, idx) => (
               <div key={idx} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden">
@@ -399,7 +399,7 @@ const HomePage = () => {
               </div>
               <p className="text-gray-400">Crafting digital experiences that inspire and transform.</p>
             </div>
-            
+
             <div>
               <h3 className="font-semibold mb-4">Quick Links</h3>
               <div className="space-y-2">
@@ -409,7 +409,7 @@ const HomePage = () => {
                 <a href="#" className="block text-gray-400 hover:text-white transition-colors">Contact</a>
               </div>
             </div>
-            
+
             <div>
               <h3 className="font-semibold mb-4">Services</h3>
               <div className="space-y-2">
@@ -419,7 +419,7 @@ const HomePage = () => {
                 <a href="#" className="block text-gray-400 hover:text-white transition-colors">Branding</a>
               </div>
             </div>
-            
+
             <div>
               <h3 className="font-semibold mb-4">Get in Touch</h3>
               <div className="space-y-2 text-gray-400">
@@ -443,7 +443,7 @@ const HomePage = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="border-t border-white/10 pt-8 text-center text-gray-400">
             <p>&copy; 2025 Infinitix Creative. All rights reserved. | Privacy Policy | Terms of Service</p>
           </div>
